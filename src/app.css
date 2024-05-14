@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+* {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Remove link styles for all states */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove link styles for visited links */
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove link styles for hover */
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove link styles for active links */
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove link styles for focus */
+a:focus {
+  outline: none; /* Optionally remove focus outline */
+  text-decoration: none;
+  color: inherit;
+}
+

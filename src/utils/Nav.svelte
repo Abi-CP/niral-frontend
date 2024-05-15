@@ -1,10 +1,18 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import NavSideBar from "../components/nav/NavSideBar.svelte";
-  import NavFab from "../components/nav/fab/NavFAB.svelte";
+  import NavFab from "../components/nav/NavFAB.svelte";
 
   export let screenWidth;
 </script>
+
+{#if screenWidth > 768}
+  <div class="sideBar">
+    <NavSideBar />
+  </div>
+{:else}
+  <NavFab />
+{/if}
 
 <style>
   .sideBar {
@@ -22,13 +30,3 @@
     transform: translateX(-100%);
   } */
 </style>
-
-{#if screenWidth > 768}
-  <div class="sideBar">
-    <NavSideBar />
-  </div>
-<!-- {:else}
-  <div class="sideBar sideBar--hidden">
-    <NavSideBar />
-  </div> -->
-{/if}

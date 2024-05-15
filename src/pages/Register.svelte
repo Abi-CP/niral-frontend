@@ -1,6 +1,7 @@
 <script>
   import { State, City } from "country-state-city";
-  import { Link } from "svelte-routing";
+import { navigate } from "svelte-routing";
+import toast from "svelte-french-toast";
 // Fetch states and cities of India
 const statesOfIndia = State.getStatesOfCountry("IN");
 let selectedState = "";
@@ -70,15 +71,42 @@ const fetchCities = (event) => {
     userDetails.details.dateOfBirth = `${dob_day} ${dob_month} ${dob_year}`;
   };
 
-  const handleSubmit = () => {
-    cegianCheck
-      ? (userDetails.specificDetails = specificDetails.cegian)
-      : otherCollegeCheck
-        ? (userDetails.specificDetails = specificDetails.otherClg)
-        : professionalCheck
-          ? (userDetails.specificDetails = specificDetails.professional)
-          : null;
-    console.log(JSON.stringify(userDetails));
+  const showToast = (type, message) => {
+    return new Promise((resolve, reject) => {
+      toast[type](message, {
+        onDismiss: () => resolve(),
+        onError: (error) => reject(error),
+      });
+    });
+  };
+
+  const registerUser = async (userData) => {
+    // Simulated registration process (replace with your actual registration logic)
+    console.log("Registering user:", JSON.stringify(userData));
+    // Assuming you make an API call to register the user and get a response
+    return { data: userData }; // Simulated response
+  };
+
+  const handleSubmit = async () => {
+    try {
+      // Show loading toast
+      await showToast("info", "Registering...");
+      
+      // Simulated registration process (replace with your actual registration logic)
+      const response = await registerUser(userDetails);
+      
+      // Save user details in session storage
+      sessionStorage.setItem("userDetails", JSON.stringify(response.data));
+      
+      // Show success toast
+      await showToast("success", "Registration successful!");
+      
+      // Redirect to the account page after successful registration
+      navigate("/account"); // Change "/account" to your desired destination
+    } catch (error) {
+      // Show error toast
+      await showToast("error", error.message || "Registration failed.");
+    }
   };
 
   let passwordInput = ""
@@ -98,7 +126,7 @@ const fetchCities = (event) => {
 
   <div class="log-container">
     <h2 class="registration-text">Registration Form</h2>
-    <form action="#" method="post" on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <div class="log-form-group">
         <label for="email">Email:</label>
         <input
@@ -553,6 +581,7 @@ const fetchCities = (event) => {
 
   .log-form-group input[type="text"],
   .log-form-group input[type="number"],
+  .log-form-group input[type="tel"],
   .log-form-group input[type="email"],
   .log-form-group input[type="tel"],
   .log-form-group input[type="password"],

@@ -4,14 +4,15 @@
   import NavFab from "../components/nav/NavFAB.svelte";
 
   export let screenWidth;
+  let isLoggedIn = true
 </script>
 
 {#if screenWidth > 768}
   <div class="sideBar">
-    <NavSideBar />
+    <NavSideBar {isLoggedIn}/>
   </div>
 {:else}
-  <NavFab />
+  <NavFab {isLoggedIn}/>
 {/if}
 
 <style>

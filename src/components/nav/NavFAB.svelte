@@ -1,106 +1,109 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import { Link } from "svelte-routing";
+
   let navIcon;
-  let navBox;
-  let body;
+  let fabActive = false;
+  export let isLoggedIn;
 
   function toggleFab() {
-    if (navBox.style.display === "flex") {
-      navBox.style.display = "none";
-      navIcon.innerHTML = "&#9776;";
-      body.style.overflow = "scroll";
+    fabActive = !fabActive;
+    if (navIcon.innerHTML == "☰") {
+      navIcon.innerHTML = "×";
     } else {
-      navBox.style.display = "flex";
-      navIcon.innerHTML = "&times;";
-      body.style.overflow = "hidden";
-    }
-  }
-
-  function handleKeyDown(event) {
-    if (event.key === "Enter") {
-      toggleFab();
+      navIcon.innerHTML = "☰";
     }
   }
 
   onMount(() => {
     navIcon = document.getElementById("navIcon");
-    navBox = document.getElementById("navBox");
-    body = document.querySelector("body");
-    navIcon.addEventListener("keydown", handleKeyDown);
-    // body.addEventListener("keydown", handleKeyDown);
+    // navBox = document.getElementById("navBox");
+    // navIcon.addEventListener("click", () => {
+    //   toggleFab();
+    // });
   });
 
   onDestroy(() => {
-    navIcon.removeEventListener("keydown", handleKeyDown);
+    navIcon.removeEventListener("click");
+    // navBox.removeEventListener("click");
   });
 </script>
 
-<div class="FABcontainer">
-  <div id="navBox">
-    <ul>
-      <li>
-        <Link to="/" on:click={toggleFab}
-          ><span class="txt clickable">Workshop</span><i
-            class="clickable fa-solid fa-atom"
-          ></i></Link
-        >
-      </li>
-      <li>
-        <Link to="/" on:click={toggleFab}
-          ><span class="txt clickable">Events</span><i
-            class="clickable fa-solid fa-dice"
-          ></i></Link
-        >
-      </li>
-      <li>
-        <Link to="/" on:click={toggleFab}
-          ><span class="txt clickable">Sponsors</span><i
-            class="clickable fa-solid fa-handshake-simple"
-          ></i></Link
-        >
-      </li>
-      <li>
-        <Link to="/" on:click={toggleFab}
-          ><span class="txt clickable">Accommodation</span><i
-            class="clickable fa-solid fa-house"
-          ></i></Link
-        >
-      </li>
-      <li>
-        <Link to="/" on:click={toggleFab}
-          ><span class="txt clickable">Account</span><i
-            class="clickable fas fa-envelope"
-          ></i></Link
-        >
-      </li>
-      <li>
-        <Link to="/" on:click={toggleFab}
-          ><span class="txt clickable">Contact</span><i
-            class="clickable fa-solid fa-phone"
-          ></i></Link
-        >
-      </li>
-      <li>
-        <Link to="/" on:click={toggleFab}
-          ><span class="txt clickable">Team</span><i
-            class="clickable fa-solid fa-user"
-          ></i></Link
-        >
-      </li>
-      <li>
-        <Link to="/" on:click={toggleFab}
-          ><span class="txt clickable">Quick Search</span><i
-            class="clickable fa-solid fa-search"
-          ></i></Link
-        >
-      </li>
-    </ul>
+{#if fabActive}
+  <div class="FABcontainer">
+    <div id="navBox">
+      <ul>
+        <li>
+          <Link to="/workshop" on:click={toggleFab}
+            ><span class="txt clickable">Workshop</span><i
+              class="clickable fa-solid fa-atom"
+            ></i></Link
+          >
+        </li>
+        <li>
+          <Link to="/events" on:click={toggleFab}
+            ><span class="txt clickable">Events</span><i
+              class="clickable fa-solid fa-dice"
+            ></i></Link
+          >
+        </li>
+        <li>
+          <Link to="/sponsors" on:click={toggleFab}
+            ><span class="txt clickable">Sponsors</span><i
+              class="clickable fa-solid fa-handshake-simple"
+            ></i></Link
+          >
+        </li>
+        <li>
+          <Link to="/accomodation" on:click={toggleFab}
+            ><span class="txt clickable">Accommodation</span><i
+              class="clickable fa-solid fa-house"
+            ></i></Link
+          >
+        </li>
+        <li>
+          {#if isLoggedIn}
+            <Link to="/account" on:click={toggleFab}
+              ><span class="txt clickable">Account</span><i
+                class="clickable fas fa-envelope"
+              ></i></Link
+            >
+          {:else}
+            <Link to="/login" on:click={toggleFab}
+              ><span class="txt clickable">Login</span><i
+                class="clickable fas fa-envelope"
+              ></i></Link
+            >
+          {/if}
+        </li>
+        <li>
+          <Link to="/contact" on:click={toggleFab}
+            ><span class="txt clickable">Contact</span><i
+              class="clickable fa-solid fa-phone"
+            ></i></Link
+          >
+        </li>
+        <li>
+          <Link to="/team" on:click={toggleFab}
+            ><span class="txt clickable">Team</span><i
+              class="clickable fa-solid fa-user"
+            ></i></Link
+          >
+        </li>
+        <li>
+          <Link to="/" on:click={toggleFab}
+            ><span class="txt clickable">Quick Search</span><i
+              class="clickable fa-solid fa-search"
+            ></i></Link
+          >
+        </li>
+      </ul>
+    </div>
   </div>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <!-- svelte-ignore a11y-interactive-supports-focus -->
-  <div id="navIcon" role="button" on:click={toggleFab}>&#9776;</div>
-</div>
+{/if}
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-interactive-supports-focus -->
+<div id="navIcon" role="button" on:click={toggleFab}>&#9776;</div>
 
 <!-- svelte-ignore css-unused-selector -->
 <style>
@@ -109,14 +112,12 @@
     top: 0;
     left: 0;
     bottom: 0;
-    height: 100%;
-    width: 100%;
-    height: 100dvh;
-    width: 100dvw;
+    right: 0;
+    z-index: 999;
   }
 
   #navIcon {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
     background-color: #333;
@@ -128,25 +129,30 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-  }
-  #navBox {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    height: 100dvh;
-    width: 100dvw;
-    backdrop-filter: blur(5px) brightness(0.8) grayscale(0.3);
+    z-index: 999;
   }
 
+  #navBox {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    justify-content: center;
+    align-items: center;
+    z-index: -1; /* Initial z-index, hides the menu behind other content */
+  }
   #navBox ul {
     /* margin-top: 5vh; */
     height: 70vh;
-    width: 65vw;
+    /* width: 100vw; */
+    max-width: max-content;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: end;
     /* margin: 50px; */
   }
 
@@ -157,6 +163,7 @@
     align-items: center;
     color: #fff;
     color: #e8f3ff;
+    max-width: max-content;
   }
 
   #navBox ul li a span {

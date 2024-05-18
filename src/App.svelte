@@ -1,4 +1,4 @@
-<!-- App.svelte -->
+<!-- // App.svelte -->
 <script>
   import { onMount, onDestroy } from "svelte";
   import { Router } from "svelte-routing";
@@ -6,26 +6,22 @@
   import Nav from "./utils/Nav.svelte";
   import toast, { Toaster } from "svelte-french-toast";
 
-  function handleClick() {
-    toast.success("Hello, world!");
-  }
-
   let screenWidth = window.innerWidth;
 
   // Function to update screenWidth when window is resized
-  // function updateScreenWidth() {
-  //   screenWidth = window.innerWidth;
-  // }
+  function updateScreenWidth() {
+    screenWidth = window.innerWidth;
+  }
 
-  // onMount(() => {
-  //   // Add event listener for window resize
-  //   window.addEventListener("resize", updateScreenWidth);
-  // });
+  onMount(() => {
+    // Add event listener for window resize
+    window.addEventListener("resize", updateScreenWidth);
+  });
 
-  // onDestroy(() => {
-  //   // Remove event listener when component is destroyed
-  //   window.removeEventListener("resize", updateScreenWidth);
-  // });
+  onDestroy(() => {
+    // Remove event listener when component is destroyed
+    window.removeEventListener("resize", updateScreenWidth);
+  });
 </script>
 
 <main>
@@ -33,13 +29,19 @@
     <nav>
       <Nav {screenWidth} />
     </nav>
-    <Routes />
+    <div id="root" style="padding-left: {screenWidth > 767 ? '4rem' : '0'}">
+      <Routes/>
+      <Toaster/>
+      <button on:click={() => toast.success('This is a success toast!')}>
+        Show Success Toast
+      </button>
+    </div>
   </Router>
 </main>
 
 <style>
   main {
     background: url("./buzzx4xo.png");
-    height: 150dvh;
+    min-height: 100dvh;
   }
 </style>

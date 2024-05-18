@@ -1,7 +1,7 @@
 <script>
   import { Link } from "svelte-routing";
 
-  export let loggedIn = false;
+  export let  isLoggedIn
   
 
   const links = [
@@ -12,7 +12,7 @@
     { to: "/accommodation", label: "Accommodation", icon: "fa-solid fa-bed" },
     { to: "/team", label: "Team", icon: "fa-solid fa-users" },
     { to: "/contact", label: "Contact", icon: "fa-regular fa-paper-plane" },
-    { to: loggedIn ? "/account" : "/login", label: loggedIn ? "Account" : "Login", icon: loggedIn ? "fa-regular fa-circle-user" : "fa-solid fa-arrow-right-to-bracket" },
+    { to: isLoggedIn ? "/account" : "/login", label: isLoggedIn ? "Account" : "Login", icon: isLoggedIn ? "fa-regular fa-circle-user" : "fa-solid fa-arrow-right-to-bracket" },
   ];
 </script>
 

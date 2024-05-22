@@ -4,45 +4,15 @@
   import toast from "svelte-french-toast";
   import Login from "../pages/Login.svelte";
 
-  const userDetails = {
-    details: {
-      emailId: undefined,
-      firstName: undefined,
-      lastName: undefined,
-      mobileNo: undefined,
-      dateOfBirth: undefined,
-      password: undefined,
-    },
-    organization: "cegian",
-    specificDetails: undefined,
-  };
+  export let regFields;
 
-  const specificDetails = {
-    cegian: {
-      college: "CEG",
-      rollNo: undefined,
-      department: undefined,
-      branch: undefined,
-      year: undefined,
-    },
-    other: {
-      college: undefined,
-      department: undefined,
-      branch: undefined,
-      year: undefined,
-      state: undefined,
-      city: undefined,
-    },
-    professional: {
-      organization: undefined,
-      experience: undefined,
-      state: undefined,
-      city: undefined,
-    },
-  };
+  if (regFields.editable) {
+  }
 
+  const userDetails = regFields.userDetails;
 
-  
+  const specificDetails = regFields.specificDetails;
+
   // Fetch states and cities of India
   const statesOfIndia = State.getStatesOfCountry("IN");
   let selectedState = "";
@@ -52,11 +22,6 @@
   let phoneError = false;
   let passwordError = false;
   let passwordMatchError = false;
-
-  export let regFields;
-
-  if (regFields.editable) {
-  }
 
   const fetchCities = (event) => {
     selectedState = event.target.value;
@@ -76,8 +41,6 @@
     professionalCheck = collegeSelectedOption === "Working Professional";
   };
 
-  const fetchDistricts = (event) => {};
-
   let dob_day, dob_month, dob_year;
   const updateSelectedDate = () => {
     userDetails.details.dateOfBirth = `${dob_day} ${dob_month} ${dob_year}`;
@@ -96,62 +59,54 @@
     }
   };
 
-  const showToast = (type, message) => {
-    return new Promise((resolve, reject) => {
-      toast[type](message, {
-        onDismiss: () => resolve(),
-        onError: (error) => reject(error),
-      });
-    });
-  };
-
-  const registerUser = async (userData) => {
-    // Simulated registration process (replace with your actual registration logic)
-    console.log("Registering user:", JSON.stringify(userData));
-    // Assuming you make an API call to register the user and get a response
-    return { data: userData }; // Simulated response
-  };
+  function showToast(type, message) {
+    if (type === "success") {
+      toast.success(message);
+    } else if (type === "error") {
+      toast.error(message);
+    }
+  }
 
   const handleSubmit = async () => {
     if (!emailError && !phoneError && !passwordError && !passwordMatchError) {
-      console.log({ userDetails, specificDetails });
-    }
+      if (cegianCheck) {
+        userDetails.organization = "cegian";
+        userDetails.specificDetails = specificDetails.cegian;
+      } else if (otherCollegeCheck) {
+        userDetails.organization = "other";
+        userDetails.specificDetails = specificDetails.other;
+      } else if (professionalCheck) {
+        userDetails.organization = "professional";
+        userDetails.specificDetails = specificDetails.professional;
+      }
 
-    if (cegianCheck) {
-      userDetails.organization = "cegian";
-      userDetails.specificDetails = specificDetails.cegian;
-    } else if (otherCollegeCheck) {
-      userDetails.organization = "other";
-      userDetails.specificDetails = specificDetails.other;
-    } else if (professionalCheck) {
-      userDetails.organization = "professional";
-      userDetails.specificDetails = specificDetails.professional;
+      fetch("http://localhost:3000/participants/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userDetails),
+      })
+        .then((response) => {
+          if (response.ok) {
+            showToast("success", "Registration Sucessful!");
+            // navigate("/account")
+          }
+          return response.json(); // Parse the JSON from the response
+        })
+        .then((data) => {
+          console.log("Data received:", data);
+          if (data.userDetails) {
+            sessionStorage.setItem("userDetails", JSON.stringify(data.userDetails));
+            console.log("ses: ", sessionStorage.getItem("userDetails"));
+          } else if (data.errorMessage) {
+            showToast("error", data.errorMessage);
+          }
+        })
+        .catch((error) => {
+          console.error("There was a problem with the fetch operation:", error);
+        });
     }
-
-    fetch("http://localhost:3000/participants/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userDetails),
-    })
-      .then((response) => {
-        if (response.ok) {
-          showToast("success", "Registration Sucessful!")
-          navigate("/account")
-        }else{
-          showToast("error", "Registration Failed!")
-          throw new Error("Network response was not ok");
-        }
-        return response.json(); // Parse the JSON from the response
-      })
-      .then((data) => {
-        console.log("Data received:", data);
-      })
-      .catch((error) => {
-        showToast("error", error.message)
-        console.error("There was a problem with the fetch operation:", error);
-      });
   };
 
   // document.querySelectorAll('.regInput').forEach
@@ -596,17 +551,13 @@
           bind:value={passwordInput}
           on:input={unlockConfirmPassword}
           on:change={() => {
-            passwordError =
-              passwordInput.length < 8 ||
-              !/\d/.test(passwordInput) ||
-              !/[a-zA-Z]/.test(passwordInput);
+            passwordError = passwordInput.length < 8;
           }}
         />
         <span class="icon"><i class="fas fa-lock"></i></span>
       </div>
       {#if passwordError}<p class="error-message">
-          Password must be at least 8 characters long and contain both letters
-          and numbers.
+          Password must be at least 8 characters long.
         </p>{/if}
       <div class="log-form-group">
         <label for="confirm_password">Confirm Password:</label>
@@ -622,8 +573,6 @@
             } else {
               passwordMatchError = true;
             }
-            // console.log(userDetails.details.password);
-            // console.log(userDetails.organization);
           }}
           required
           disabled

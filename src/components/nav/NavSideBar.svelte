@@ -1,8 +1,6 @@
 <script>
   import { Link } from "svelte-routing";
-
-  export let  isLoggedIn
-  
+  import { isLoggedIn } from "../../stores/loginStatus";
 
   const links = [
     { to: "/", label: "Home", icon: "fa-solid fa-house" },
@@ -12,23 +10,36 @@
     { to: "/accommodation", label: "Accommodation", icon: "fa-solid fa-bed" },
     { to: "/team", label: "Team", icon: "fa-solid fa-users" },
     { to: "/contact", label: "Contact", icon: "fa-regular fa-paper-plane" },
-    { to: isLoggedIn ? "/account" : "/login", label: isLoggedIn ? "Account" : "Login", icon: isLoggedIn ? "fa-regular fa-circle-user" : "fa-solid fa-arrow-right-to-bracket" },
   ];
 </script>
 
-<div class="side-nav flex jcc" id=".side-navBar">
+<div class="side-nav flex jcc" id="side-navBar">
   <ul>
     {#each links as link}
     <Link to={link.to}>
       <li>
-          <p>{link.label}</p>
-          <i class={link.icon}></i>
-        </li>
-      </Link>
+        <p>{link.label}</p>
+        <i class={link.icon}></i>
+      </li>
+    </Link>
     {/each}
+    {#if $isLoggedIn}
+    <Link to={'/account'}>
+      <li>
+        <p>Account</p>
+        <i class="fa-regular fa-circle-user"></i>
+      </li>
+    </Link>
+    {:else}
+    <Link to={'/login'}>
+      <li>
+        <p>Login</p>
+        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+      </li>
+    </Link>
+    {/if}
   </ul>
 </div>
-
 <style>
   .side-nav {
     width: 4rem;

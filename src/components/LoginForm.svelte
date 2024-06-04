@@ -3,22 +3,16 @@
   import { toast } from "svelte-french-toast";
   import { isLoggedIn } from "../stores/loginStatus";
   import { getContext } from "svelte";
+  import { showToast } from "../lib/toast";
+  import { serverUrl } from "../../public/env";
 
-  const parentFunction = getContext("parentFunction");
+  const hideLoginComp = getContext("hideLoginComp");
 
   export let toNavigate = false;
   export let parentFunc = false;
 
   let email = "";
   let password = "";
-
-  function showToast(type, message) {
-    if (type === "success") {
-      toast.success(message);
-    } else if (type === "error") {
-      toast.error(message);
-    }
-  }
 
   const handleSubmit = async () => {
     // Validate form fields
@@ -28,7 +22,7 @@
     }
 
     try {
-      const response = await fetch("http://localhost:3000/participants/login", {
+      const response = await fetch(`${serverUrl}/participants/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,14 +30,16 @@
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.ok) {
+      if (!response) {
+        showToast("error", "err_connection_refused");
+      } else if (response.ok) {
         const { token, userDetails } = await response.json();
         document.cookie = `authToken=${token}; path=/;`;
         sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
         isLoggedIn.set(true);
         showToast("success", "Login successful!");
         if (toNavigate) navigate("/account");
-        if(parentFunc)parentFunction();
+        if (parentFunc) hideLoginComp();
       } else {
         const responseData = await response.json();
         if (responseData.errorMessage) {
@@ -54,6 +50,7 @@
       }
     } catch (error) {
       console.log("Error during login: ", error);
+      showToast("error", "Error Connecting to the Server");
     }
   };
 </script>

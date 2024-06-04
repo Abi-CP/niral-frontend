@@ -1,20 +1,35 @@
 <script>
+  import { navigate } from "svelte-routing";
   import AdminManagerForm from "../components/admin/AdminManagerForm.svelte";
   import EventsManager from "../components/admin/EventsManager.svelte";
-  import ParticipantManagerForm from "../components/admin/ParticipantManagerForm.svelte";
-    import PaymentManager from "../components/admin/PaymentManager.svelte";
-    // import fetchPay
-  let searchData = {
-    query: undefined,
-    type: "participant",
-  };
+  import ParticipantManagerForm from "../components/admin/ParticipantManagerItem.svelte";
+  import PaymentManager from "../components/admin/PaymentManager.svelte";
+  import SearchResult from "../components/admin/SearchResult.svelte";
+  import { serverUrl } from "../../public/env";
+  import { onMount } from "svelte";
+  // import fetchPay
 
+  let adminData;
+  let adminFormType = "add";
+  onMount(() => {
+    const adminDataFromSessionStorage = sessionStorage.getItem("adminDetails");
+    if (!adminDataFromSessionStorage) {
+      navigate("/admin/login");
+      const data = JSON.parse(adminDataFromSessionStorage);
+      adminData = data;
+    }
+  });
+
+  console.log(adminData);
+
+  let search = false;
   let addParticipantSelected = false;
   let addAdminSelected = false;
   let managePaymentsSelected = false;
   let manageEventsSelected = false;
 
-  function handleButtonClick(button) {
+  function handleSelection(button) {
+    search = button === "search";
     addParticipantSelected = button === "addParticipant";
     addAdminSelected = button === "addAdmin";
     managePaymentsSelected = button === "managePayments";
@@ -32,7 +47,7 @@
   }
 
   function handleManagePayments() {
-    fetchPayments()
+    fetchPayments();
   }
 
   function handleManageEvents() {
@@ -40,7 +55,6 @@
     console.log("Manage Events function called");
   }
 
-  const serverUrl = "http://localhost:5173";
   const endpoint = "/admin/payments/manage";
 
   export async function fetchPayments() {
@@ -57,8 +71,17 @@
     }
   }
 
-  
-  function handleSearch() {}
+  let searchData = {
+    query: undefined,
+    type: "participant",
+  };
+  let searchType;
+
+  function handleSearch() {
+    handleSelection("search");
+    searchType = searchData.type;
+    searchType = "participant";
+  }
 </script>
 
 <div class="holder flex aic jcc">
@@ -68,7 +91,7 @@
         class="addParticipant menuBtn"
         class:selected={addParticipantSelected}
         on:click={() => {
-          handleButtonClick("addParticipant");
+          handleSelection("addParticipant");
           handleAddParticipant();
         }}
       >
@@ -78,7 +101,7 @@
         class="addAdmin menuBtn"
         class:selected={addAdminSelected}
         on:click={() => {
-          handleButtonClick("addAdmin");
+          handleSelection("addAdmin");
           handleAddAdmin();
         }}
       >
@@ -88,7 +111,7 @@
         class="managePayments menuBtn"
         class:selected={managePaymentsSelected}
         on:click={() => {
-          handleButtonClick("managePayments");
+          handleSelection("managePayments");
           handleManagePayments();
         }}
       >
@@ -98,7 +121,7 @@
         class="manageEvents menuBtn"
         class:selected={manageEventsSelected}
         on:click={() => {
-          handleButtonClick("manageEvents");
+          handleSelection("manageEvents");
           handleManageEvents();
         }}
       >
@@ -121,20 +144,27 @@
           required
           bind:value={searchData.type}
         >
-          <option value="particpant" selected>Participant</option>
-          <option value="admin">Admin</option>
+          <option
+            value="participant"
+            selected={searchData.type === "participant"}>Participant</option
+          >
+          <option value="admin" selected={searchData.type === "admin"}
+            >Admin</option
+          >
         </select>
 
         <button type="submit" class="search">Search</button>
       </form>
     </div>
     <div class="display">
-      {#if addParticipantSelected}
+      {#if search}
+        <SearchResult {searchType} />
+      {:else if addParticipantSelected}
         <ParticipantManagerForm />
       {:else if addAdminSelected}
-        <AdminManagerForm />
+        <AdminManagerForm {adminFormType} />
       {:else if managePaymentsSelected}
-      <ParticipantManagerForm/>
+        <PaymentManager />
       {:else if manageEventsSelected}
         <EventsManager />
       {/if}
@@ -145,7 +175,7 @@
 <style>
   .container {
     width: calc(95vw - 4rem);
-    max-width: 800px;
+    max-width: 1000px;
     background: #fff;
     padding: 2rem 1rem;
     border-radius: 10px;
@@ -160,6 +190,10 @@
     height: 50px;
     margin: 0.5rem 0;
   }
+
+  .menuBtn.selected {
+    background-color: lightblue; /* Add your selected style here */
+  }
   .searchBar {
     width: 100%;
     margin: 1.5rem 0;
@@ -172,10 +206,6 @@
   }
   .search {
     width: 17%;
-  }
-
-  .menuBtn.selected {
-    background-color: lightblue; /* Add your selected style here */
   }
 
   @media (max-width: 767px) {

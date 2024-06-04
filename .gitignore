@@ -24,3 +24,10 @@ dist-ssr
 *.sw?
 
 .env
+env.js
+
+
+#server log files
+serverLogs.txt
+serverPageRequestLogs.md
+serverVisitCounts.md

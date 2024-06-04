@@ -3,6 +3,7 @@
   import { navigate } from "svelte-routing";
   import toast from "svelte-french-toast";
   import Login from "../pages/Login.svelte";
+  import { serverUrl } from "../../public/env";
 
   export let regFields;
 
@@ -80,7 +81,7 @@
         userDetails.specificDetails = specificDetails.professional;
       }
 
-      fetch("http://localhost:3000/participants/register", {
+      fetch(`${serverUrl}/participants/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

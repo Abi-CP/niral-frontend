@@ -5,7 +5,7 @@
   import { onMount } from "svelte";
   import { isLoggedIn } from "../stores/loginStatus";
 
-  let userDetails={}
+  let userDetails = {};
 
   onMount(() => {
     const userDetailsFromSession = sessionStorage.getItem("userDetails");
@@ -101,15 +101,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {#each Object.entries(userDetails.permit) as [permitId, permitDetails]}
-                    <tr>
-                      <td>{permitId}</td>
-                      <td>{permitDetails.status}</td>
-                    </tr>
-                  {/each}
+                  {#if userDetails.permit}
+                    {#each Object.entries(userDetails.permit) as [permitId, permitDetails]}
+                      <tr>
+                        <td>{permitId}</td>
+                        <td>{permitDetails.status}</td>
+                      </tr>
+                    {/each}
+                  {/if}
                 </tbody>
               </table>
-              
             </div>
           </div>
         </div>
@@ -129,9 +130,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {#each userDetails.paymentHistory as payment}
+                  {#each Object.entries(userDetails.paymentHistory) as [transactionId, payment]}
                     <tr>
-                      <td>{payment.transactionId}</td>
+                      <td>{transactionId}</td>
                       <td>{payment.status}</td>
                     </tr>
                   {/each}

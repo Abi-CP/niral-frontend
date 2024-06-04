@@ -6,7 +6,7 @@
 
 
   let unsubscribe;
-  let toNavigate = false
+  let toNavigate = true
   onMount(() => {
     if ($isLoggedIn) {
       navigate("/account");
@@ -25,5 +25,16 @@
     }
   });
 </script>
+<div class="main  flex jcc aic">
 
 <LoginForm {toNavigate}/>
+
+</div>
+<style>
+   .main {
+    background: url("buzzx4xo.png");
+    width: 100%;
+    height: 90vh;
+    height: 100dvh;
+  }
+</style>

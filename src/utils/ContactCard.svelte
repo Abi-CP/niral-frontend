@@ -34,6 +34,12 @@
     border-radius: 10px;
     background-color: rgba(16, 18, 27, 0.45);
   }
+  .contact-card:hover {
+  background-color: rgba(16, 18, 27, 0.55);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
 
   .button-container {
     justify-content: space-evenly;
@@ -52,6 +58,12 @@
     border: none;
     cursor: pointer;
   }
+  button:hover {
+  background-color: rgba(16, 18, 27, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
   button i {
     font-size: 1rem;
   }

@@ -4,7 +4,9 @@ Price - Rs.250 early bird
 Rs.300 normal registration
 Rs.350 onspot registration -->
 <script>
-  var parser = new DOMParser();
+  import InfoCard from "../../../utils/InfoCard.svelte";
+
+  // var parser = new DOMParser();
   let eventDetails = [
     {
       title: "Takeaway",
@@ -22,35 +24,13 @@ Rs.350 onspot registration -->
     },
 ,
   ];
+
 </script>
 
 {#each eventDetails as detail}
-  <div class="infoCard flex">
-    <div class="icon flex aic jcc">
-      <i class="fa-solid fa-{detail.icon}"></i>
-    </div>
-    <div class="info flex fdc jcsb">
-      <div class="infoText">{detail.description}</div>
-      <div class="infoDescription">{detail.title}</div>
-    </div>
-  </div>
+  <InfoCard
+    icon={detail.icon}
+    description={detail.description}
+    title={detail.title}
+  />
 {/each}
-
-<style>
-  .infoCard {
-    width: 100%;
-    padding: .7rem 1rem;
-    margin: .5rem;
-    border-radius: 10px;
-    background-color: rgba(16,18,27,.5);
-  }
-  
-  .icon {
-    margin-right: 2rem;
-  }
-  .info {
-    width: 80%;
-    min-height: 15%;
-  }
-  .infoDescription{font-size: .8rem;}
-</style>

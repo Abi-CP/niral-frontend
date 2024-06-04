@@ -7,7 +7,7 @@
   import toast, { Toaster } from "svelte-french-toast";
   import { isLoggedIn } from "./stores/loginStatus";
 
-  import {serverUrl} from "./config.js"
+  import { serverUrl } from "../public/env";
 
   let screenWidth = window.innerWidth;
 
@@ -58,18 +58,7 @@
     <div id="root" style="padding-left: {screenWidth > 767 ? '4rem' : '0'}">
       <Routes />
       <Toaster />
-      <!-- <button on:click={() => toast.success("This is a success toast!")}>
-        Show Success Toast
-      </button> -->
-
-
     </div>
   </Router>
 </main>
 
-<style>
-  main {
-    background: url("./buzzx4xo.png");
-    min-height: 100dvh;
-  }
-</style>

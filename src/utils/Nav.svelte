@@ -8,12 +8,12 @@
 
 </script>
 
-{#if screenWidth > 768}
+{#if screenWidth > 767}
   <div class="sideBar">
     <NavSideBar/>
   </div>
 {:else}
-  <!-- <NavFab {isLoggedIn}/> -->
+  <NavFab/>
 {/if}
 
 <style>

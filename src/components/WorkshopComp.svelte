@@ -1,9 +1,9 @@
 <script>
-  import { onMount } from "svelte";
   import { isLoggedIn } from "../stores/loginStatus";
   import LoginForm from "./LoginForm.svelte";
   import { setContext } from "svelte";
   import Payment from "./Payment.svelte";
+  import WindowButton from "./WindowButton.svelte";
 
   export let title;
   export let subtitle;
@@ -14,6 +14,9 @@
   export let permitName = undefined;
   export let permitPrice = 299;
 
+  export let entryInfo =
+    '"Gen AI Workshop Permit" is required to attend this workshop.';
+
   let registerBtnValue = [eventID, permitID];
 
   let descriptionSelected = true;
@@ -23,24 +26,9 @@
 
   let loginComp = false;
   let paymentComp = false;
-  let eventRegister = true;
+  let showPopup = false;
 
   let parentFunc = true;
-
-  // onMount(() => {
-  //   document.querySelectorAll(".comp").forEach((element) => {
-  //     element.addEventListener("click", ()=>{eventRegister});
-  //   });
-  // });
-
-  // function removeComp() {
-  //   if (loginComp) {
-  //     loginComp = false;
-  //   }
-  //   if (paymentComp) {
-  //     paymentComp = false;
-  //   }
-  // }
 
   function changeSelected(event) {
     if (event.target.value == "1") {
@@ -67,22 +55,32 @@
   }
 
   function handleRegister() {
+    showPopup = true;
     loginComp = !$isLoggedIn;
-    paymentComp = true
+    paymentComp = true;
   }
 
   function hideLoginComp() {
     loginComp = false;
   }
 
-  setContext("parentFunction", hideLoginComp);
+  function openPopup() {
+    showPopup = true;
+  }
+
+  function closePopup() {
+    showPopup = false;
+  }
+
+  function handleOutsideClick() {
+    if (event.target === document.getElementById("popupBackground")) {
+      closePopup();
+    }
+  }
+  setContext("hideLoginComp", hideLoginComp);
 </script>
 
-<div class="video">
-  <!-- <video autoplay muted loop playsinline>
-    <source src="../7btrrd video.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video> -->
+<div class="bgAnim">
   <img src={bg} alt="" srcset="" />
 </div>
 <div class="bgBlur"></div>
@@ -95,10 +93,7 @@
     </div>
     <div class="screen flex aic jcc fdc">
       <div class="topBar flex jcsb">
-        <div class="windowBtnsContainer flex jcse">
-          <button class="windowBtn"></button><button class="windowBtn"
-          ></button><button class="windowBtn"></button>
-        </div>
+        <WindowButton />
       </div>
       <main>
         <header class="flex jcsb">
@@ -114,6 +109,9 @@
             ><span class="regButton-content">Register</span></button
           >
         </header>
+        <div class="entryInfoContainer flex jcc aic">
+          <div class="entryInfo">{entryInfo}</div>
+        </div>
         <article class="flex jcsb aic jcc">
           <div class="detailsContainer flex fdc aic jcse">
             <div class="nav flex aic jcc">
@@ -197,32 +195,46 @@
     </div>
   </div>
 </div>
-<!-- {#if eventRegister}
-<div class="comp"> -->
-  {#if loginComp}
-    <div class="loginComp comp flex aic jcc">
-      <LoginForm {parentFunc} />
-    </div>
-  {/if}
-  {#if paymentComp && $isLoggedIn && !loginComp}
-    <div class="paymentComp comp flex aic jcc">
-      <Payment {permitID} {permitName} {permitPrice} />
-    </div>
-  {/if}
+{#if showPopup}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <div
+    id="popupBackground"
+    class="popup-background"
+    on:click={handleOutsideClick}
+  >
+    {#if loginComp}
+      <div class="loginComp comp flex aic jcc">
+        <LoginForm {parentFunc} />
+      </div>
+    {:else if paymentComp && $isLoggedIn}
+      <div class="paymentComp comp flex aic jcc">
+        <Payment {permitID} {permitName} {permitPrice} />
+      </div>
+    {/if}
+  </div>
+{/if}
+
 <!-- </div>
 {/if} -->
 
 <style>
-  /* @import "../lib/workshop.css"; */
-.comp{position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
+  .popup-background {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
     left: 0;
-    backdrop-filter: blur(5px);}
-  /* .loginComp,
-  .paymentComp {} */
-  .video {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+  }
+
+  .bgAnim {
     position: fixed;
     top: 0;
     left: 0;
@@ -230,7 +242,7 @@
     width: 100dvh;
     z-index: -10;
   }
-  .video img {
+  .bgAnim img {
     width: 100vw;
     height: 100vh;
   }
@@ -282,26 +294,6 @@
     height: calc(100% - 4rem);
     width: 100%;
   }
-  .windowBtnsContainer {
-    margin: 0.8rem 1rem;
-    width: 5rem;
-  }
-  .windowBtn {
-    height: 1rem;
-    width: 1rem;
-    border-width: 0px;
-    border-radius: 5rem;
-  }
-
-  .windowBtn:nth-child(1) {
-    background: #f9544b;
-  }
-  .windowBtn:nth-child(2) {
-    background: #f8ce52;
-  }
-  .windowBtn:nth-child(3) {
-    background: #5fcf65;
-  }
   .bottomRegisterBtnContainer {
     display: none;
   }
@@ -344,8 +336,8 @@
   }
 
   header {
-    margin-top: 3vh;
-    height: 10vh;
+    margin-top: 1.5vh;
+    height: 8vh;
     width: 100%;
     color: #fff;
     padding: 0 3vw;
@@ -353,9 +345,21 @@
   header .titleContainer h3 {
     font-size: 2rem;
   }
-  /* header .titleContainer h5{
-      font-size: 1rem;
-  } */
+
+  .entryInfoContainer {
+    width: 100%;
+  }
+  .entryInfo {
+    color: #fff;
+    font-size: .95rem;
+    margin-top: 1rem;
+    padding: .3rem 2rem;
+    letter-spacing: 1px;
+    font-style: italic;
+
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 25px;
+  }
   article {
     /* height: 100%; */
     height: 78vh;
@@ -403,7 +407,7 @@
     width: 90%;
     background: rgba(16, 18, 27, 0.6);
     border-radius: 10px;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 
   .detailsContainer .content .wrapper {

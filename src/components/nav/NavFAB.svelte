@@ -1,10 +1,10 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import { Link } from "svelte-routing";
+  import { isLoggedIn } from "../../stores/loginStatus";
 
   let navIcon;
   let fabActive = false;
-  export let isLoggedIn;
 
   function toggleFab() {
     fabActive = !fabActive;
@@ -34,10 +34,10 @@
     <div id="navBox">
       <ul>
         <li>
-          <Link to="/workshop" on:click={toggleFab}
-            ><span class="txt clickable">Workshop</span><i
-              class="clickable fa-solid fa-atom"
-            ></i></Link
+          <Link to="/workshops" on:click={toggleFab}
+            ><span class="txt clickable">Workshop</span>
+            <i class="clickable fa-solid fa-atom"></i>
+            </Link
           >
         </li>
         <li>
@@ -49,9 +49,9 @@
         </li>
         <li>
           <Link to="/sponsors" on:click={toggleFab}
-            ><span class="txt clickable">Sponsors</span><i
-              class="clickable fa-solid fa-handshake-simple"
-            ></i></Link
+            ><span class="txt clickable">Sponsors</span>
+            <i class="clickable fa-solid fa-handshake-simple"></i>
+            </Link
           >
         </li>
         <li>
@@ -62,7 +62,7 @@
           >
         </li>
         <li>
-          {#if isLoggedIn}
+          {#if $isLoggedIn}
             <Link to="/account" on:click={toggleFab}
               ><span class="txt clickable">Account</span><i
                 class="clickable fas fa-envelope"

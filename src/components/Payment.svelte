@@ -1,5 +1,6 @@
 <script>
   import toast from "svelte-french-toast";
+  import { serverUrl } from "../../public/env";
 
   export let permitID;
   export let permitName;
@@ -8,13 +9,13 @@
   let transactionId;
   let date;
 
-  let url = "http://localhost:3000/participants/permit";
+  let url = `${serverUrl}/participants/permit`;
 
   async function reqPayment() {
     const data = {
       permitID: permitID,
       transactionId: transactionId,
-      date: date,
+      transactionDate: date,
     };
     const authToken = document.cookie
       .split("; ")
@@ -33,7 +34,15 @@
       });
 
       if (!response.ok) {
-        toast.error("Failed");
+
+        if(response){
+          const res = await response.json()
+          if(res.errorMessage){
+            toast.error(res.errorMessage)
+          }
+          console.log(res);
+          toast.error("Failed");
+        }
         console.log(response);
         throw new Error("Failed to post data");
       }
@@ -97,7 +106,7 @@
     margin: 2rem 0 1.5rem;
   }
 
-  .qr-code img {
+  /* .qr-code img {
     width: 200px;
     height: 200px;
     margin-bottom: 20px;
@@ -108,8 +117,8 @@
       255,
       0.8
     ); /* Violet color with glassmorphism effect */
-    backdrop-filter: blur(5px); /* Glassmorphism effect */
-  }
+    /* backdrop-filter: blur(5px); Glassmorphism effect */
+  /* }  */
 
   .transaction-details {
     margin-bottom: 2rem;

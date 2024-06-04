@@ -17,6 +17,10 @@
 .fdc {
   flex-direction: column;
 }
+.fdcr{
+  flex-direction: column-reverse;
+}
+.fdrr{flex-direction: row-reverse;}
 .fdr {
   flex-direction: row;
 }
@@ -40,6 +44,10 @@
 }
 .aic {
   align-items: center;
+  
+}
+.aie{
+  align-items: end;
 }
 .acsb{align-content: space-between;}
 /* Display */
@@ -70,3 +78,15 @@
   position: relative;
 }
 
+
+/* Text */
+/* .tac{
+  text-align: center;
+}
+.tal{
+  text-align: left;
+}
+.tar{
+  text-align: right;
+}
+. */

@@ -20,17 +20,25 @@
 <!-- </div> -->
 
 <style>
-  .mail-card {
-    height: 2.8rem;
-    color: white;
-    width: 85%;
-    padding: 0.7rem 1.5rem 0.7rem 2.5rem;
-    margin: 0.5rem;
-    border-radius: 5rem;
-    background-color: rgba(16, 18, 27, 0.5);
-    border: none;
-    cursor: pointer;
-  }
+.mail-card {
+  height: 2.8rem;
+  color: white;
+  width: 85%;
+  padding: 0.7rem 1.5rem 0.7rem 2.5rem;
+  margin: 0.5rem;
+  border-radius: 5rem;
+  background-color: rgba(16, 18, 27, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mail-card:hover {
+  background-color: rgba(16, 18, 27, 0.7);
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 215, 0, 0.8); /* Add a neon border effect */
+}
 
   .icon-container {
     justify-content: space-between;

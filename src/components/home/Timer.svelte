@@ -46,7 +46,7 @@
 
 <style>
   #timer {
-    margin-top: 20vh;
+    margin-top: 15vh;
     font-size: 1.2rem;
     color: red;
   }
@@ -62,6 +62,12 @@
     color: white;
     font-size: 5rem;
     font-family: "ds digi";
+  }
+
+  @media (max-width: 1000px) {
+    #timer {
+      margin-top: 7vh;
+    }
   }
 
   @media (max-width: 767px) {

@@ -1,42 +1,9 @@
-<script>
-  import { onMount } from "svelte";
-
-  let observerInitialized = false;
-
-  onMount(() => {
-    if (!observerInitialized) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("centre");
-            } else {
-              entry.target.classList.remove("centre");
-            }
-          });
-        },
-        { threshold: [0.1, 0.5] }
-      );
-
-      const cards = document.querySelectorAll(".section");
-      cards.forEach((card) => {
-        observer.observe(card);
-      });
-      observerInitialized = true;
-    }
-  });
-</script>
-
 <div class="holder">
-  <!-- <div style="width: fit-content; height: 5vh;"></div> -->
-  <div
-    style="color:white;width: fit-content; height: fit-content;"
-    class="centre section heading"
-  >
+  <div style="color:white;width: fit-content; height: fit-content;" class="section heading">
     <h5 class="headingTxt">About</h5>
   </div>
   <div class="section flex fdc aic">
-    <h4>College of Engineering Guindy</h4>
+    <h4 class="aboutTitle">College of Engineering Guindy</h4>
     <div class="container flex">
       <div class="glassCard flex aic jcc">
         <p>
@@ -50,17 +17,12 @@
         </p>
       </div>
       <div class="imgContainer flex aic jcc">
-        <img
-          src="./img2.jpeg"
-          style="width: 20vw;height:auto;"
-          alt=""
-          srcset=""
-        />
+        <img src="/assets/img/ceg_logo.png" alt="" srcset="" loading="lazy">
       </div>
     </div>
   </div>
   <div class="section flex fdc aic">
-    <h4 style="text-align: right;">Association of Computer Application</h4>
+    <h4 class="aboutTitle association">Association of Computer Application</h4>
     <div class="container flex fdrr">
       <div class="glassCard flex aic jcc">
         <p>
@@ -71,37 +33,27 @@
         </p>
       </div>
       <div class="imgContainer flex aic jcc">
-        <img
-          src="./img2.jpeg"
-          style="width: 20vw;height:auto;"
-          alt=""
-          srcset=""
-        />
+        <img src="/assets/img/aca_logo.png" alt="" srcset="" loading="lazy">
       </div>
     </div>
   </div>
   <div class="section flex fdc aic">
-    <h4>Niral 2024</h4>
+    <h4 class="aboutTitle">Niral 2024</h4>
     <div class="container flex">
       <div class="glassCard flex aic jcc">
         <p>
           Niral is a national level technical symposium organized by the
-          postgraduate students of MCA started from the year 2011. NIRAL’2024 is
-          planned to be organized on March 14th and 15th 2020.
-          This is a symposium that has an implied academic aspect that
-          distinguishes it from other symposiums. Through this symposium, every
-          student is given an opportunity of greater degree knowledge. It would
-          be a great platform to showcase the aspiring technical skill,
-          co-curricular activities and come out with flying colors.
+          postgraduate students of MCA started from the year 2011. NIRAL'24 is
+          planned to be organized on June 13, 14 and 15 2024. This is a symposium
+          that has an implied academic aspect that distinguishes it from other
+          symposiums. Through this symposium, every student is given an
+          opportunity of greater degree knowledge. It would be a great platform
+          to showcase the aspiring technical skill, co-curricular activities and
+          come out with flying colors.
         </p>
       </div>
       <div class="imgContainer flex aic jcc">
-        <img
-          src="./img2.jpeg"
-          style="width: 20vw;height:auto;"
-          alt=""
-          srcset=""
-        />
+        <img src="./Niral24.jpg" alt="" srcset="" loading="lazy">
       </div>
     </div>
   </div>
@@ -119,13 +71,15 @@
   }
 
   .section {
-    width: 100%;
+    /* width: 100%; */
     height: fit-content;
     display: flex;
     align-items: flex-end;
-    opacity: 0;
-    transition: padding 500ms ease-in-out;
+    opacity: 1;
   }
+
+  h4{width: 97%;
+  margin-top: 3rem;}
 
   .glassCard {
     width: 50vw;
@@ -146,8 +100,9 @@
     font-size: 1.4rem;
     letter-spacing: 0.25rem;
     text-transform: uppercase;
-    width: 100%;
+    /* width: 100%; */
   }
+
   .glassCard p {
     font-size: 1.2rem;
     line-height: 2.4;
@@ -157,30 +112,16 @@
   .imgContainer {
     min-height: 30vh;
     width: fit-content;
-    /* height: auto; */
     margin: 2.5rem;
   }
 
   img {
-    height: 100%;
-    width: auto;
+    width: 20vw;
+    height: auto;
   }
 
-  /* .section:nth-child(2) {
-    flex-direction: row;
-  }
-
-  .section:nth-child(3) {
-    flex-direction: row-reverse;
-  }
-
-  .section:nth-child(4) {
-    flex-direction: row;
-  } */
-
-  .centre {
-    padding: 5vh 10vw;
-    opacity: 1;
+  .association {
+    text-align: right;
   }
 
   .heading {
@@ -193,14 +134,14 @@
     -webkit-background-clip: text;
     color: transparent;
     font-size: 3rem;
+    margin-bottom: 1rem;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1000px) {
     .section {
       width: auto;
     }
-    .section h4{
-      /* width: 80%; */
+    .section h4 {
       text-align: center;
     }
     .container {
@@ -208,12 +149,17 @@
     }
 
     .imgContainer {
-      width: 100%;
+      min-height: auto;
     }
-
     img {
       width: 70%;
       height: auto;
+      object-fit: cover;
+    }
+
+    .aboutTitle {
+      width: 80% !important;
+      margin: auto;
     }
   }
 
@@ -227,11 +173,6 @@
 
     .glassCard {
       width: 90vw !important;
-      
-    }
-
-    .centre {
-      padding: 2vh 5vw;
     }
   }
 </style>

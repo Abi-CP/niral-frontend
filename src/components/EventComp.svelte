@@ -1,81 +1,62 @@
 <script>
-  import { isLoggedIn } from "../stores/loginStatus";
-  import LoginForm from "./LoginForm.svelte";
-  import { setContext } from "svelte";
-  import Payment from "./Payment.svelte";
   import WindowButton from "./WindowButton.svelte";
+  import { navigate } from "svelte-routing";
 
   export let title;
-  export let subtitle;
+  export let subtitle = undefined;
   export let bannerUrl;
   export let bg;
-  export let eventID = undefined;
-  export let permitID = "p1";
-  export let permitName = undefined;
-  export let permitPrice = 299;
+  export let nextRoute = "next";
+  export let prevRoute = "next";
+  export let catagory = "tech/nonTech";
 
-  let registerBtnValue = [eventID, permitID];
+
+  export let entryInfo =
+    '"Events Permit" is required to attend this event.';
+
 
   let descriptionSelected = true;
   let roundsSelected = false;
-  let infoSelected = false;
+  let rulesSelected = false;
+  let scheduleSelected = false;
   let contactSelected = false;
-
-  let loginComp = false;
-  let paymentComp = false;
-  let eventRegister = true;
-
-  let parentFunc = true;
-
-  // onMount(() => {
-  //   document.querySelectorAll(".comp").forEach((element) => {
-  //     element.addEventListener("click", ()=>{eventRegister});
-  //   });
-  // });
-
-  // function removeComp() {
-  //   if (loginComp) {
-  //     loginComp = false;
-  //   }
-  //   if (paymentComp) {
-  //     paymentComp = false;
-  //   }
-  // }
 
   function changeSelected(event) {
     if (event.target.value == "1") {
       descriptionSelected = true;
       roundsSelected = false;
-      infoSelected = false;
+      rulesSelected = false;
+      scheduleSelected = false;
       contactSelected = false;
     } else if (event.target.value == "2") {
       descriptionSelected = false;
       roundsSelected = true;
       contactSelected = false;
-      infoSelected = false;
+      scheduleSelected = false;
+      rulesSelected = false;
     } else if (event.target.value == "3") {
       descriptionSelected = false;
       roundsSelected = false;
-      infoSelected = true;
+      rulesSelected = true;
+      scheduleSelected = false;
       contactSelected = false;
     } else if (event.target.value == "4") {
       descriptionSelected = false;
       roundsSelected = false;
-      infoSelected = false;
+      rulesSelected = false;
+      scheduleSelected = true;
+      contactSelected = false;
+    } else if (event.target.value == "5") {
+      descriptionSelected = false;
+      roundsSelected = false;
+      rulesSelected = false;
+      scheduleSelected = false;
       contactSelected = true;
     }
   }
 
-  function handleRegister() {
-    loginComp = !$isLoggedIn;
-    paymentComp = true;
-  }
-
-  function hideLoginComp() {
-    loginComp = false;
-  }
-
-  setContext("hideLoginComp", hideLoginComp);
+  function handleNext(){ navigate(`/events/${catagory=='tech'?'tech':'NonTech'}/${nextRoute}`) }
+function handlePrev(){ navigate(`/events/${catagory=='tech'?'tech':'NonTech'}/${prevRoute}`) }
 </script>
 
 <div class="bgAnim">
@@ -85,7 +66,7 @@
 <div class="viewport flex aic jcc">
   <div class="pageContainer flex aic jcc">
     <div class="prevBtn flex aic jcc">
-      <button class="arrowButton clickable"
+      <button class="arrowButton clickable" on:click={handlePrev}
         ><i class="fa-solid fa-angles-left faAngles clickable"></i></button
       >
     </div>
@@ -97,17 +78,15 @@
         <header class="flex jcsb">
           <div class="titleContainer">
             <h3 class="title">{title}</h3>
-            <h5 class="subtitle">{subtitle}</h5>
+            {#if subtitle}
+              <h5 class="subtitle">{subtitle}</h5>
+            {/if}
           </div>
-          <button
-            class="regButton top flex aic jcc"
-            id="regDown"
-            value={registerBtnValue}
-            on:click={handleRegister}
-            ><span class="regButton-content">Register</span></button
-          >
         </header>
-        <article class="flex jcsb aic fdrr">
+        <div class="entryInfoContainer clickable flex jcc aic">
+          <div class="entryInfo" on:click={()=>{navigate("/permits")}}>{entryInfo}</div>
+        </div>
+        <article class="flex fdrr jcsb aic jcc">
           <div class="detailsContainer flex fdc aic jcse">
             <div class="nav flex aic jcc">
               <button
@@ -118,46 +97,60 @@
                 on:click={changeSelected}>Description</button
               >
               <button
-                class="rounds {roundsSelected
+                class="speakers {roundsSelected
                   ? 'selected'
                   : ''} navButton flex aic jcc clickable"
                 value="2"
-                on:click={changeSelected}>Round(s)</button
+                on:click={changeSelected}>Rounds</button
               >
               <button
-                class="info {infoSelected
+                class="info {rulesSelected
                   ? 'selected'
                   : ''} navButton flex aic jcc clickable"
                 value="3"
-                on:click={changeSelected}>Info</button
+                on:click={changeSelected}>Rules</button
               >
+              <button
+              class="contact {scheduleSelected
+                ? 'selected'
+                : ''} navButton flex aic jcc clickable"
+              value="4"
+              on:click={changeSelected}>Schedule</button
+            >
               <button
                 class="contact {contactSelected
                   ? 'selected'
                   : ''} navButton flex aic jcc clickable"
-                value="4"
+                value="5"
                 on:click={changeSelected}>Contact</button
               >
+
             </div>
             <div class="content">
               <div class="wrapper flex aic jcc">
                 {#if descriptionSelected}
-                  <div class="descriptionContainer flex fdc">
+                  <div class="descriptionContainer scrollable flex fdc">
                     <slot name="description"></slot>
                   </div>
                 {:else if roundsSelected}
-                  <div class="roundsContainer">
-                    <slot name="round"></slot>
+                  <div class="speakersContainer scrollable">
+                    <slot name="rounds"></slot>
                   </div>
-                {:else if infoSelected}
+                {:else if rulesSelected}
                   <div
-                    class="infoCardContainer flex fdc jcse aic"
+                    class="infoCardContainer scrollable flex fdc jcse aic"
                     style="width: 100%;height:100%"
                   >
-                    <slot name="info"></slot>
+                    <slot name="rules"></slot>
+                  </div>
+                  {:else if scheduleSelected}<div
+                    class="contactCardContainer scrollable flex fdc jcse aic"
+                    style="width: 100%;height:100%"
+                  >
+                    <slot name="schedule"></slot>
                   </div>
                 {:else if contactSelected}<div
-                    class="contactCardContainer flex fdc jcse aic"
+                    class="contactCardContainer scrollable flex fdc jcse aic"
                     style="width: 100%;height:100%"
                   >
                     <slot name="contact"></slot>
@@ -169,63 +162,39 @@
           <div class="photoContainer flex aic jcc">
             <img
               src={bannerUrl}
-              alt="Workshop Banner"
+              alt="Event Banner"
               srcset=""
               class="banner"
             />
           </div>
         </article>
-        <div class="bottomRegisterBtnContainer flex jcc">
-          <button class="regButton bottom" id="regDown"
-            ><span class="regButton-content">Register</span></button
-          >
-        </div>
       </main>
       <div class="bottomBar flex jcsb"></div>
     </div>
     <div class="nextBtn flex aic jcc">
-      <button class="arrowButton clickable"
+      <button class="arrowButton clickable" on:click={handleNext}
         ><i class="fa-solid fa-angles-right faAngles clickable"></i></button
       >
     </div>
   </div>
 </div>
-<!-- {#if eventRegister}
-  <div class="comp"> -->
-{#if loginComp}
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div
-    class="loginComp comp flex aic jcc"
-    on:click={() => {
-      loginComp = false;
-    }}
-    role=""
-  >
-    <LoginForm {parentFunc} />
-  </div>
-{/if}
-{#if paymentComp && $isLoggedIn && !loginComp}
-  <div class="paymentComp comp flex aic jcc">
-    <Payment {permitID} {permitName} {permitPrice} />
-  </div>
-{/if}
-
-<!-- </div>
-  {/if} -->
 
 <style>
-  /* @import "../lib/workshop.css"; */
-  .comp {
+  .popup-background {
     position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
     left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(5px);
   }
-  /* .loginComp,
-    .paymentComp {} */
+
   .bgAnim {
     position: fixed;
     top: 0;
@@ -249,17 +218,17 @@
     -webkit-backdrop-filter: blur(20px);
   }
   .viewport {
-    width: calc(100vw - 4rem);
-    height: 100vh;
-    width: calc(100dvw - 4rem);
-    height: 100dvh;
-    background: url("../assets/gradient.gif");
+    /* width: 100%; */
+    min-height: 100vh;
+    /* width: calc(100dvw - 4rem); */
+    min-height: 100dvh;
   }
   .pageContainer {
-    height: 95vh;
+    min-height: 95vh;
     width: 100%;
+    margin: 1rem 0;
     /* backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px); */
+    -webkit-backdrop-filter: blur(20px); */
 
     /* background: #000; */
   }
@@ -270,7 +239,7 @@
     /* background: #fff; */
   }
   .screen {
-    height: 100%;
+    min-height: 100%;
     width: calc(100% - 8rem);
     border: 0.2px solid black;
     border-radius: 12px;
@@ -328,18 +297,31 @@
   }
 
   header {
-    margin-top: 3vh;
-    height: 10vh;
+    margin-top: 1.5vh;
+    height: 8vh;
     width: 100%;
     color: #fff;
     padding: 0 3vw;
   }
   header .titleContainer h3 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
-  /* header .titleContainer h5{
-        font-size: 1rem;
-    } */
+
+  .entryInfoContainer {
+    width: calc(100% - 4rem);
+    margin: 1rem 2rem 0;
+  }
+  .entryInfo {
+    color: #fff;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    padding: 0.15rem 1.5rem;
+    letter-spacing: 1px;
+    font-style: italic;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    text-align: center;
+  }
   article {
     /* height: 100%; */
     height: 78vh;
@@ -387,7 +369,7 @@
     width: 90%;
     background: rgba(16, 18, 27, 0.6);
     border-radius: 10px;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 
   .detailsContainer .content .wrapper {
@@ -399,6 +381,10 @@
     height: calc(100% - 2rem);
     width: 100%;
     overflow-y: auto;
+  }
+
+  .wrapper .scrollable {
+    max-height: 100%;
   }
   .photoContainer {
     height: 70vh;

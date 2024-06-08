@@ -1,12 +1,11 @@
 <script>
-  export let name = "Gen AI Workshop";
-  export let date = "04 May, 2024";
-  export let status = "pending";
-  export let transactionDate = "04 May, 2024";
+  export let name = "N/A";
+  export let date = "N/A";
+  export let status = "applied";
+  export let transactionDate = "N/A";
   export let transactionId = "N/A";
-  export let verifiedDate = "N/A";
-  export let validity = "14, 15, june";
-  export let expiry = "2024-06-03 15:19";
+  export let validity = "14, 15, June";
+  export let expiry = "2024-06-15 17:20";
 
   let isExpired = false;
 
@@ -21,7 +20,7 @@
     isExpired = true;
   }
 
-  console.log(isExpired); // Output: true if the timestamp has expired, false otherwise
+  // console.log(isExpired); // Output: true if the timestamp has expired, false otherwise
   let isExpanded = false;
 
   function toggleExpand() {
@@ -29,12 +28,12 @@
   }
 
   let waveText =
-    status == "pending"
+    status == "pending" || status == "applied"
       ? `Permit Verification request have been submitted. Kindly wait until verification.`
       : status == "verified"
         ? `Congradulations! Your pass have been verified successfully`
         : status == "rejected"
-          ? `Your request have been rejected. Ensure valid details and try again or contact []`
+          ? `Your request have been rejected. Ensure valid details and try again or contact [Naveen: +91 79043 74673]`
           : "";
   let spans = [];
 
@@ -55,7 +54,7 @@
     <h4>{name}</h4>
     <div
       class="statusIcon flex jcc aic"
-      style="background-color: {status == 'pending'
+      style="background-color: {status == 'pending' || status == 'applied'
         ? 'orange'
         : status == 'verified'
           ? 'green'
@@ -64,7 +63,7 @@
             : ''};"
     >
       <i
-        class="fa-solid fa-{status == 'pending'
+        class="fa-solid fa-{status == 'pending' || status == 'applied'
           ? 'exclamation'
           : status == 'verified'
             ? 'check'
@@ -76,8 +75,18 @@
   </div>
   <div class="flex jcsb">
     <div>
-      <p class="headingTxt">Status: {status}</p>
-      <p class="headingTxt">{date}</p>
+      <p class="headingTxt">
+        Status: <span
+          style="color: {status == 'pending' || status == 'applied'
+            ? '#FF6347'
+            : status == 'verified'
+              ? 'green'
+              : status == 'rejected'
+                ? 'red'
+                : ''};">{status}</span
+        >
+      </p>
+      <p class="headingTxt">{date ? date : transactionDate}</p>
     </div>
     <div class="flex aie">
       {#if !isExpanded}
@@ -98,7 +107,7 @@
       </div>
       <p>Transaction Date: {transactionDate}</p>
       <p>Transaction ID: {transactionId}</p>
-      <p>Verified Date: {verifiedDate}</p>
+      <p>Verified Date: {date ? date : "N/A"}</p>
     </div>
   </div>
 </div>
@@ -111,7 +120,10 @@
     transition: all 0.3s ease;
     cursor: pointer;
     background-color: #f0f0f0;
-    width: 300px;
+    min-width: 250px;
+    max-width: 300px;
+    color: black;
+    margin: 1rem;
   }
 
   .ticket.expired .headingTxt {
@@ -185,5 +197,11 @@
     animation: colorWave 1.5s infinite;
     animation-delay: calc(0.1s * var(--i));
     font-size: 0.8rem;
+  }
+
+  @media (max-width: 400px) {
+    .ticket {
+      width: 95%;
+    }
   }
 </style>

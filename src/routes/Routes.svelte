@@ -10,23 +10,59 @@
   import Account from "../pages/Account.svelte";
   import Team from "../pages/Team.svelte";
   import Contact from "../pages/Contact.svelte";
-  import Webgenie from "../pages/events/Webgenie.svelte";
   import Login from "../pages/Login.svelte";
   import Register from "../pages/Register.svelte";
-  // import Payment from "../pages/Payment.svelte";
   import CreateAccount from "../pages/CreateAccount.svelte";
   import WorkShopOne from "../pages/workshops/WS1.svelte";
   import Admin from "../pages/Admin.svelte";
   import AdminLogin from "../pages/admin/AdminLogin.svelte"
   import Permits from "../pages/Permits.svelte";
+  import Test from "../pages/Test.svelte";
+  import TE1 from "../pages/events/TE1.svelte";
+  import TE2 from "../pages/events/TE2.svelte";
+  import TE3 from "../pages/events/TE3.svelte";
+  import TE4 from "../pages/events/TE4.svelte";
+  import TE5 from "../pages/events/TE5.svelte";
+  import TE6 from "../pages/events/TE6.svelte";
+  import TE7 from "../pages/events/TE7.svelte";
+  import TE8 from "../pages/events/TE8.svelte";
+  import NTE1 from "../pages/events/NTE1.svelte";
+  import NTE2 from "../pages/events/NTE2.svelte";
+  import NTE3 from "../pages/events/NTE3.svelte";
+  import NTE4 from "../pages/events/NTE4.svelte";
+  import NTE5 from "../pages/events/NTE5.svelte";
+  import Hackathon from "../pages/events/Hackathon.svelte";
+  import NotFound from "../pages/NotFound.svelte";
+
 </script>
+
+<!-- 1. Code relay (1) 
+2. CipherCraft (2)
+3. Software presentation (1 or 2)
+4. Code Brawl (1) 
+5. Blind typing
+6. Design Web
+7. Sql war
+8. Data Alchemists Odyssey
+9. ~~The Game~~ 
+
+### Non Tech Events
+
+1. Escape Room
+2. Movie mayhem
+3. Oru kadha sollatuma sir
+4. Fandom Quiz(anime)
+5. Technical connection
+
+### Flagship Event
+
+Hack X Game -->
 
 <Router>
   <Route path="/" component={Home} />
   <Route path="/workshops" component={Workshops} />
   <Route path="/workshops/Gen-AI" component={WorkShopOne} />
-  <!-- <Route path="/events" component={Events} /> -->
-  <Route path="/events" component={Webgenie} />
+  <Route path="/events" component={Events} />
   <Route path="/sponsors" component={Sponsors} />
   <Route path="/" component={Sponsors} />
   <Route path="/accommodation" component={Accommodation} />
@@ -35,9 +71,25 @@
   <Route path="/contact" component={Contact} />
   <Route path="/login" component={Login} />
   <Route path="/register" component={Register} />
-  <!-- <Route path="/payment" component={Payment} /> -->
   <Route path="/permits" component={Permits} />
   <Route path="/create-account" component={CreateAccount} />
   <Route path="/admin" component={Admin} />
   <Route path="/admin/login" component={AdminLogin} />
+  <Route path="/test" component={Test} />
+
+  <Route path="/events/Tech/CodeRelay" component={TE1} />
+  <Route path="/events/Tech/CipherCraft" component={TE2} />
+  <Route path="/events/Tech/SoftwarePresentation" component={TE3} />
+  <Route path="/events/Tech/CodeBrawl" component={TE4} />
+  <Route path="/events/Tech/BlindTyping" component={TE5} />
+  <Route path="/events/Tech/DesignWeb" component={TE6} />
+  <Route path="/events/Tech/SqlWar" component={TE7} />
+  <Route path="/events/Tech/DataAlchemistsOdyssey" component={TE8} />
+  <Route path="/events/NonTech/EscapeRoom" component={NTE1} />
+  <Route path="/events/NonTech/MovieMayhem" component={NTE2} />
+  <Route path="/events/NonTech/OruKadhaSollatumaSir" component={NTE3} />
+  <Route path="/events/NonTech/FandomQuiz" component={NTE4} />
+  <Route path="/events/NonTech/TechnicalConnection" component={NTE5} />
+  <Route path="/events/HackXGame" component={Hackathon} />
+  <Route path="/*" component={NotFound} />
 </Router>

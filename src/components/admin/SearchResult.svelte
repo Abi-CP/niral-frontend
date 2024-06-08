@@ -189,8 +189,8 @@
 <button
   class="menuBtn clickable"
   on:click={() => {
-    console.log(searchDetails);
-    console.log(deletedUsers);
+    // console.log(searchDetails);
+    // console.log(deletedUsers);
   }}>Submit</button
 >
 <style>

@@ -1,15 +1,20 @@
 <script>
   import { isLoggedIn } from "../stores/loginStatus";
-  import LoginForm from "./LoginForm.svelte";
   import { setContext } from "svelte";
+  import LoginForm from "./LoginForm.svelte";
   import Payment from "./Payment.svelte";
   import WindowButton from "./WindowButton.svelte";
 
   export let title;
-  export let subtitle;
+  export let subtitle = undefined;
   export let bannerUrl;
   export let bg;
   export let eventID = undefined;
+
+  let validity = "June 12, 2024";
+
+
+
   export let permitID = "p1";
   export let permitName = undefined;
   export let permitPrice = 299;
@@ -64,10 +69,6 @@
     loginComp = false;
   }
 
-  function openPopup() {
-    showPopup = true;
-  }
-
   function closePopup() {
     showPopup = false;
   }
@@ -99,7 +100,9 @@
         <header class="flex jcsb">
           <div class="titleContainer">
             <h3 class="title">{title}</h3>
+            {#if subtitle}
             <h5 class="subtitle">{subtitle}</h5>
+            {/if}
           </div>
           <button
             class="regButton top flex aic jcc"
@@ -109,7 +112,7 @@
             ><span class="regButton-content">Register</span></button
           >
         </header>
-        <div class="entryInfoContainer flex jcc aic">
+        <div class="entryInfoContainer clickable flex jcc aic">
           <div class="entryInfo">{entryInfo}</div>
         </div>
         <article class="flex jcsb aic jcc">
@@ -147,22 +150,22 @@
             <div class="content">
               <div class="wrapper flex aic jcc">
                 {#if descriptionSelected}
-                  <div class="descriptionContainer flex fdc">
+                  <div class="descriptionContainer scrollable flex fdc">
                     <slot name="description"></slot>
                   </div>
                 {:else if speakersSelected}
-                  <div class="speakersContainer">
+                  <div class="speakersContainer scrollable">
                     <slot name="speaker"></slot>
                   </div>
                 {:else if infoSelected}
                   <div
-                    class="infoCardContainer flex fdc jcse aic"
+                    class="infoCardContainer scrollable flex fdc jcse aic"
                     style="width: 100%;height:100%"
                   >
                     <slot name="info"></slot>
                   </div>
                 {:else if contactSelected}<div
-                    class="contactCardContainer flex fdc jcse aic"
+                    class="contactCardContainer scrollable flex fdc jcse aic"
                     style="width: 100%;height:100%"
                   >
                     <slot name="contact"></slot>
@@ -181,7 +184,7 @@
           </div>
         </article>
         <div class="bottomRegisterBtnContainer flex jcc">
-          <button class="regButton bottom" id="regDown"
+          <button class="regButton bottom" id="regDown" value={registerBtnValue} on:click={handleRegister}
             ><span class="regButton-content">Register</span></button
           >
         </div>
@@ -209,7 +212,7 @@
       </div>
     {:else if paymentComp && $isLoggedIn}
       <div class="paymentComp comp flex aic jcc">
-        <Payment {permitID} {permitName} {permitPrice} />
+        <Payment  {permitID} {permitName} {permitPrice} validity={validity} />
       </div>
     {/if}
   </div>
@@ -257,15 +260,15 @@
     -webkit-backdrop-filter: blur(20px);
   }
   .viewport {
-    width: calc(100vw - 4rem);
-    height: 100vh;
-    width: calc(100dvw - 4rem);
-    height: 100dvh;
-    background: url("../assets/gradient.gif");
+    /* width: 100%; */
+    min-height: 100vh;
+    /* width: calc(100dvw - 4rem); */
+    min-height: 100dvh;
   }
   .pageContainer {
-    height: 95vh;
+    min-height: 95vh;
     width: 100%;
+    margin: 1rem 0;
     /* backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px); */
 
@@ -278,7 +281,7 @@
     /* background: #fff; */
   }
   .screen {
-    height: 100%;
+    min-height: 100%;
     width: calc(100% - 8rem);
     border: 0.2px solid black;
     border-radius: 12px;
@@ -343,22 +346,23 @@
     padding: 0 3vw;
   }
   header .titleContainer h3 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .entryInfoContainer {
-    width: 100%;
+    width: calc(100% - 4rem);
+    margin: 1rem 2rem 0;
   }
   .entryInfo {
     color: #fff;
-    font-size: .95rem;
+    font-size: 0.85rem;
     margin-top: 1rem;
-    padding: .3rem 2rem;
+    padding: 0.15rem 1.5rem;
     letter-spacing: 1px;
     font-style: italic;
-
-    border: 1px solid rgba(255, 255, 255, .5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 25px;
+    text-align: center;
   }
   article {
     /* height: 100%; */
@@ -419,6 +423,10 @@
     height: calc(100% - 2rem);
     width: 100%;
     overflow-y: auto;
+  }
+
+  .wrapper .scrollable {
+    max-height: 100%;
   }
   .photoContainer {
     height: 70vh;

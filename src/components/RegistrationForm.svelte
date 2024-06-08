@@ -91,16 +91,21 @@
         .then((response) => {
           if (response.ok) {
             showToast("success", "Registration Sucessful!");
-            // navigate("/account")
+            navigate('/login');
           }
           return response.json(); // Parse the JSON from the response
         })
         .then((data) => {
-          console.log("Data received:", data);
+          // console.log("Data received:", data);
           if (data.userDetails) {
-            sessionStorage.setItem("userDetails", JSON.stringify(data.userDetails));
-            console.log("ses: ", sessionStorage.getItem("userDetails"));
+            sessionStorage.setItem(
+              "userDetails",
+              JSON.stringify(data.userDetails)
+            );
+
+            // console.log("ses: ", sessionStorage.getItem("userDetails"));
           } else if (data.errorMessage) {
+            // navigate('/login');
             showToast("error", data.errorMessage);
           }
         })
@@ -594,7 +599,7 @@
   />
   <span class="icon"><i class="fas fa-user-friends"></i></span>
 </div> -->
-      <div class="log-form-group">
+      <div class="log-form-group flex jcc">
         <button type="submit" id="submit">Register</button>
       </div>
     {/if}
@@ -685,7 +690,7 @@
 
   .log-form-group button {
     padding: 10px 20px;
-    background-color: #4caf50;
+    background-color: rebeccapurple;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -695,7 +700,7 @@
 
   .log-form-group button:hover,
   .log-form-group button:focus {
-    background-color: #45a049;
+    background-color: rebeccapurple;
   }
 
   .registration-text {

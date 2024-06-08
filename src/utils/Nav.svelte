@@ -24,7 +24,7 @@
     height: 100%;
     background-color: #f0f0f0;
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
-    z-index: 100;
+    z-index: 998;
     transition: transform 0.3s ease-in-out;
   }
 

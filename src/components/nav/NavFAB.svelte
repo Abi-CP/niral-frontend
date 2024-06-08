@@ -6,97 +6,55 @@
   let navIcon;
   let fabActive = false;
 
+  const links = [
+    { to: "/", label: "Home", icon: "fa-solid fa-house" },
+    { to: "/workshops", label: "Workshops", icon: "fa-solid fa-screwdriver-wrench" },
+    { to: "/events", label: "Events", icon: "fa-solid fa-dice" },
+    { to: "/sponsors", label: "Sponsors", icon: "fa-solid fa-handshake-simple" },
+    { to: "/accommodation", label: "Accommodation", icon: "fa-solid fa-bed" },
+    { to: "/contact", label: "Contact", icon: "fa-solid fa-phone" },
+    { to: "/team", label: "Team", icon: "fa-solid fa-user" },
+    { to: "/account", label: "Account", icon: "fas fa-circle-user", authRequired: true }, // This needs to be conditionally rendered
+    { to: "/login", label: "Login", icon: "fas fa-arrow-right-to-bracket", authRequired: false },   // This needs to be conditionally rendered
+    // { to: "/", label: "Quick Search", icon: "fa-solid fa-search" },
+  ];
+
   function toggleFab() {
     fabActive = !fabActive;
     if (navIcon.innerHTML == "☰") {
       navIcon.innerHTML = "×";
+      document.body.style.overflow = "hidden";
     } else {
       navIcon.innerHTML = "☰";
+      document.body.style.overflow = "auto";
     }
   }
 
   onMount(() => {
     navIcon = document.getElementById("navIcon");
-    // navBox = document.getElementById("navBox");
-    // navIcon.addEventListener("click", () => {
-    //   toggleFab();
-    // });
   });
 
   onDestroy(() => {
     navIcon.removeEventListener("click");
-    // navBox.removeEventListener("click");
   });
 </script>
 
 {#if fabActive}
-  <div class="FABcontainer">
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <div class="FABcontainer" on:click={toggleFab}>
     <div id="navBox">
       <ul>
-        <li>
-          <Link to="/workshops" on:click={toggleFab}
-            ><span class="txt clickable">Workshop</span>
-            <i class="clickable fa-solid fa-atom"></i>
-            </Link
-          >
-        </li>
-        <li>
-          <Link to="/events" on:click={toggleFab}
-            ><span class="txt clickable">Events</span><i
-              class="clickable fa-solid fa-dice"
-            ></i></Link
-          >
-        </li>
-        <li>
-          <Link to="/sponsors" on:click={toggleFab}
-            ><span class="txt clickable">Sponsors</span>
-            <i class="clickable fa-solid fa-handshake-simple"></i>
-            </Link
-          >
-        </li>
-        <li>
-          <Link to="/accomodation" on:click={toggleFab}
-            ><span class="txt clickable">Accommodation</span><i
-              class="clickable fa-solid fa-house"
-            ></i></Link
-          >
-        </li>
-        <li>
-          {#if $isLoggedIn}
-            <Link to="/account" on:click={toggleFab}
-              ><span class="txt clickable">Account</span><i
-                class="clickable fas fa-envelope"
-              ></i></Link
-            >
-          {:else}
-            <Link to="/login" on:click={toggleFab}
-              ><span class="txt clickable">Login</span><i
-                class="clickable fas fa-envelope"
-              ></i></Link
-            >
+        {#each links as link}
+          {#if link.authRequired === undefined || link.authRequired === $isLoggedIn}
+            <li>
+              <Link to={link.to} on:click={toggleFab}>
+                <span class="txt clickable">{link.label}</span>
+                <i class={`clickable ${link.icon}`}></i>
+              </Link>
+            </li>
           {/if}
-        </li>
-        <li>
-          <Link to="/contact" on:click={toggleFab}
-            ><span class="txt clickable">Contact</span><i
-              class="clickable fa-solid fa-phone"
-            ></i></Link
-          >
-        </li>
-        <li>
-          <Link to="/team" on:click={toggleFab}
-            ><span class="txt clickable">Team</span><i
-              class="clickable fa-solid fa-user"
-            ></i></Link
-          >
-        </li>
-        <li>
-          <Link to="/" on:click={toggleFab}
-            ><span class="txt clickable">Quick Search</span><i
-              class="clickable fa-solid fa-search"
-            ></i></Link
-          >
-        </li>
+        {/each}
       </ul>
     </div>
   </div>
@@ -114,6 +72,7 @@
     bottom: 0;
     right: 0;
     z-index: 999;
+    backdrop-filter: blur(5px);
   }
 
   #navIcon {
@@ -145,15 +104,12 @@
     z-index: -1; /* Initial z-index, hides the menu behind other content */
   }
   #navBox ul {
-    /* margin-top: 5vh; */
     height: 70vh;
-    /* width: 100vw; */
     max-width: max-content;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: end;
-    /* margin: 50px; */
   }
 
   #navBox ul li {
@@ -168,7 +124,6 @@
 
   #navBox ul li a span {
     font-size: 0.95rem;
-    /* font-weight: 600; */
     border-radius: 1.2rem;
     padding: 0.25rem 1.4rem;
     text-align: right;

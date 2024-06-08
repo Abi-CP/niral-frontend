@@ -70,14 +70,14 @@
   let password;
 
   let editable = true;
-  let fetchMethod
+  let fetchMethod;
   if (adminFormType == "add") {
     editable = true;
-    fetchMethod = 'POST'
+    fetchMethod = "POST";
   } else if (adminFormType == "manage") {
     if (currAdminData.level < adminData.level) {
       editable = true;
-      fetchMethod = 'PUT'
+      fetchMethod = "PUT";
     } else {
       editable = false;
       showToast("error", "You can't edit Admin with higher level!");
@@ -88,28 +88,28 @@
   } else if (adminFormType == "manage") {
   }
 
-  const handleClick = async ()=>{
+  const handleClick = async () => {
     try {
-    const response = await fetch(`${serverUrl}/manageAdmins/${adminFormType}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(adminData),
-    });
+      const response = await fetch(
+        `${serverUrl}/manageAdmins/${adminFormType}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(adminData),
+        }
+      );
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    } else {
-      showToast("success", "Operation Successful")
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        showToast("success", "Operation Successful");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-
-    
-    
-  } catch (error) {
-    console.error('Error:', error);
-  }
-  }
+  };
 </script>
 
 <div class="container flex jcc">
@@ -477,29 +477,29 @@
   .workshops input[type="checkbox"] {
     margin-right: 5px;
   }
-  
+
   .submitBtn {
-  background-color: #4CAF50; /* Green background color */
-  border: none; /* Remove border */
-  color: white; /* White text color */
-  padding: 12px 24px; /* Add some padding */
-  text-align: center; /* Center the text */
-  text-decoration: none; /* Remove underline */
-  display: inline-block; /* Display as inline block */
-  font-size: 16px; /* Set font size */
-  margin: 4px 2px; /* Add some margin */
-  cursor: pointer; /* Change cursor to pointer on hover */
-  border-radius: 4px; /* Add rounded corners */
-  transition: background-color 0.3s ease; /* Add transition effect */
-}
+    background-color: #4caf50; /* Green background color */
+    border: none; /* Remove border */
+    color: white; /* White text color */
+    padding: 12px 24px; /* Add some padding */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Display as inline block */
+    font-size: 16px; /* Set font size */
+    margin: 4px 2px; /* Add some margin */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    border-radius: 4px; /* Add rounded corners */
+    transition: background-color 0.3s ease; /* Add transition effect */
+  }
 
-.submitBtn:hover {
-  background-color: #45a049; /* Change background color on hover */
-}
+  .submitBtn:hover {
+    background-color: #45a049; /* Change background color on hover */
+  }
 
-.submitBtn:active {
-  background-color: #3e8e41; /* Change background color on click */
-}
+  .submitBtn:active {
+    background-color: #3e8e41; /* Change background color on click */
+  }
 
   @media (max-width: 480px) {
     .card {

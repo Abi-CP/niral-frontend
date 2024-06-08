@@ -1,59 +1,98 @@
+<script>
+  import { Link } from "svelte-routing";
+
+</script>
 <div class="events flex aic fdc">
     <h4 class="headingTxt"> Events </h4>
     <div class="container flex jcsb">
+        <div class="wrapper flagship">
+            <h5>Flagship Event</h5>
+            <ul>
+                <li class="clickable">
+                <Link to="/events/HackXGame">
+                <h6>Hack X Game</h6>
+                </Link>
+            </li></ul>
+        </div>
         <div class="wrapper tech flex aic fdc">
             <h5>Tech Events</h5>
             <ul class="flex fdc aic jcc">
                 <li class="clickable">
+                    <Link to="/events/Tech/CodeRelay">
                     <h6>Code relay</h6>
+                    </Link>
                 </li>
                 <li class="clickable">
+                    <Link to="/events/Tech/CipherCraft">
                     <h6>CipherCraft</h6>
+                    </Link>
                 </li>
                 <li class="clickable">
+                    <Link to="/events/Tech/SoftwarePresentation">
                     <h6>Software presentation</h6>
+                    </Link>
                 </li>
                 <li class="clickable">
+                    <Link to="/events/Tech/CodeBrawl">
                     <h6>Code Brawl</h6>
+                    </Link>
                 </li>
                 <li class="clickable">
+                    <Link to="/events/Tech/BlindTyping">
                     <h6>Blind typing</h6>
+                    </Link>
                 </li>
+
                 <li class="clickable">
+                    <Link to="/events/Tech/DesignWeb">
                     <h6>Design Web</h6>
+                    </Link>
                 </li>
                 <li class="clickable">
+                    <Link to="/events/Tech/SqlWar">
                     <h6>Sql war</h6>
+                    </Link>
                 </li>
                 <li class="clickable">
-                    <h6>Technical connection</h6>
+                    <Link to="/events/Tech/DataAlchemists">
+                    <h6>Data Alchemists Odyssey</h6>
+                    </Link>
                 </li>
+                
             </ul>
         </div>
         <div class="wrapper nonTech flex aic fdc">
             <h5>Non-Tech Events</h5>
             <ul class="flex fdc aic jcc">
                 <li class="clickable">
+                    <Link to="/events/EscapeRoom">
                     <h6>Escape Room</h6>
+                    </Link>
                 </li>
                 <li class="clickable">
+                    <Link to="/events/MovieMayhem">
                     <h6>Movie mayhem</h6>
+                    </Link>
                 </li>
                 <li class="clickable">
+                    <Link to="/events/OruKadhaSollatumaSir">
                     <h6>Oru Kadha Sollatuma Sir</h6>
+                    </Link>
                 </li>
                 <li class="clickable">
+                    <Link to="/events/FandomQuiz">
                     <h6>Fandom Quiz(anime)</h6>
+                    </Link>
+                </li>
+                <li class="clickable">
+                    <Link to="/events/TechnicalConnection">
+                    <h6>Technical connection</h6>
+                    </Link>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="wrapper flagship">
-        <h5>Flagship Event</h5>
-        <ul><li class="clickable">
-            <h6>Hackathon</h6>
-        </li></ul>
-    </div>
+
 </div>
 
 <style>
@@ -72,7 +111,10 @@
   }
   .container{
     width: 80%;
+    max-width: 1000px;
   }
+
+
 
   .wrapper{
     width: 35vh;

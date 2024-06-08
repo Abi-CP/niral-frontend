@@ -1,10 +1,16 @@
-<div class="windowBtnsContainer flex jcsb">
-    <button class="windowBtn"></button><button class="windowBtn"
-    ></button><button class="windowBtn"></button>
-  </div>
+<script>
 
-  <style>
-     .windowBtnsContainer {
+  import { navigate } from "svelte-routing";
+
+</script>
+<div class="windowBtnsContainer flex jcsb">
+  <button class="windowBtn clickable" on:click={()=>{navigate("/")}}></button><button class="windowBtn  clickable" on:click={()=>{navigate("/")}}></button><button
+    class="windowBtn clickable" on:click={()=>{navigate("/")}}
+  ></button>
+</div>
+
+<style>
+  .windowBtnsContainer {
     margin: 0.8rem 1rem;
     width: 4rem;
   }
@@ -24,4 +30,4 @@
   .windowBtn:nth-child(3) {
     background: #5fcf65;
   }
-  </style>
+</style>

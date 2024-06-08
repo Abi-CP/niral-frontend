@@ -6,7 +6,6 @@
   let getType = "";
   const endpoint = "/admin/payments/manage";
 
-
   let paymentDetails = [];
   let pendingTransactions = [];
   let verifiedTransactions = [];
@@ -43,7 +42,7 @@
       statusMap.set(transaction._id, transaction.status);
     });
     isLoading = false;
-    console.log(paymentDetails);
+    // console.log(paymentDetails);
   }
 
   function updateStatus(transactionId, status) {
@@ -66,7 +65,7 @@
     });
     setTimeout(() => {
       filterValue = "";
-    }, 100)
+    }, 100);
   }
 
   function restoreTransaction(transaction) {

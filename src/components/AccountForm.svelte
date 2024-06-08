@@ -12,7 +12,7 @@
   if (userDetails.organization == "cegian") {
     cegianCheck = true;
     // userDetails.details.year = userDetails.details.year.toString();
-    console.log(userDetails.details.year);
+    // console.log(userDetails.details.year);
   } else if (userDetails.organization == "other") {
     otherCollegeCheck = true;
     // userDetails.details.year = userDetails.details.year.toString();
@@ -465,7 +465,7 @@
   .log-form-group select:disabled {
     width: calc(100% - 20px);
     padding: 10px;
-    border: 1px solid rebeccapurple;
+    border: 1px solid RGB(157, 0, 255);
     border-radius: 5px;
     position: relative;
     padding-left: 40px;

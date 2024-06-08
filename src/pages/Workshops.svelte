@@ -1,14 +1,14 @@
 <script>
   import { navigate } from "svelte-routing";
 
-  navigate("/workshops/Gen-AI")
-  console.log('ni');
+  navigate("/workshops/Gen-AI");
+  // console.log('ni');
 </script>
 
 <!-- <script>
   let title = "Workshop Title";
   let subtitle = "lorem ipsum summat ";
-  let bannerUrl = "img2.jpeg";
+  let bannerUrl = "Niral24.jpg";
 
   let descriptionSelected = true;
   let speakersSelected = false;
@@ -152,7 +152,7 @@
     z-index: -1;
   }
   .viewport {
-    width: calc(100vw - 4rem);
+    width: 100%;
     height: 100vh;
     width: calc(100dvw - 4rem);
     height: 100dvh;

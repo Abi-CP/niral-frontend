@@ -86,11 +86,11 @@
 
     <div class="log-form-group">
       <p>
-        Don't have an account? <Link to="/create-account">Create Account</Link>
+        Don't have an account? <Link to="/create-account"><span style="color: #008cff;">Create Account</span> </Link>
       </p>
     </div>
 
-    <div class="log-form-group">
+    <div class="log-form-group flex jcc">
       <button type="submit">Login</button>
     </div>
   </form>
@@ -144,16 +144,17 @@
 
   .log-form-group button {
     padding: 10px 20px;
-    background-color: #4caf50;
+    background-color: rebeccapurple;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin: auto;
   }
 
   .log-form-group button:hover {
-    background-color: #45a049;
+    background-color: #008cff;
   }
 
   .registration-text {

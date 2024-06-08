@@ -20,7 +20,7 @@
     }
   });
 
-  console.log(adminData);
+  // console.log(adminData);
 
   let search = false;
   let addParticipantSelected = false;

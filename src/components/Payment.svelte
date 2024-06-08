@@ -1,29 +1,42 @@
 <script>
   import toast from "svelte-french-toast";
   import { serverUrl } from "../../public/env";
-
+  import { navigate } from "svelte-routing";
+  // console.log("payment");
   export let permitID;
   export let permitName;
   export let permitPrice;
 
   let transactionId;
   let date;
-
+  let paymentType = "A/c: 39808003030";
+  let screenShotSent = false;
   let url = `${serverUrl}/participants/permit`;
+  export let validity;
 
   async function reqPayment() {
+    if (!screenShotSent) {
+      toast.error("Kindly Send ScreenShot of your Transaction");
+      return;
+    }
     const data = {
       permitID: permitID,
       transactionId: transactionId,
       transactionDate: date,
+      paymentType: paymentType,
+      screenShotSent: screenShotSent,
     };
+
+    if (validity) {
+      data.validity = validity;
+    }
     const authToken = document.cookie
       .split("; ")
       .find((row) => row.startsWith("authToken="));
     const token = authToken.split("=")[1];
 
     try {
-      console.log(data);
+      // console.log(data);
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -34,23 +47,22 @@
       });
 
       if (!response.ok) {
-
-        if(response){
-          const res = await response.json()
-          if(res.errorMessage){
-            toast.error(res.errorMessage)
+        if (response) {
+          const res = await response.json();
+          if (res.errorMessage) {
+            toast.error(res.errorMessage);
           }
           console.log(res);
-          toast.error("Failed");
         }
-        console.log(response);
+        // console.log(response);
         throw new Error("Failed to post data");
+        return;
       }
 
-      toast.success("success payment");
-
+      toast.success("Permit Request Success! Reload to check status.");
+      navigate('/account')
       const responseData = await response.json();
-      console.log("Response data:", responseData);
+      // console.log("Response data:", responseData);
 
       // Further processing of the response data can be done here
     } catch (error) {
@@ -65,17 +77,48 @@
     <!-- <div class="qr-code">
       <img src="qr-img.png" alt="QR Code" />
     </div> -->
+    <div class="permitName">{permitName}</div>
+    {#if validity}
+      <div class="permitName">{validity}</div>
+    {/if}
+    <div class="transaction-amount">Amount to be paid: ₹{permitPrice}</div>
     <div class="transaction-details">
-      <div class="transaction-amount">Amount to be paid: ₹{permitPrice}</div>
-      <div class="bank-ac">Bank Account: 123456789009876</div>
-      <div class="bank-ifsc">IFSC Code: 12345678910</div>
+      <select name="paymentType" id="paymentType" bind:value={paymentType}>
+        <option value="A/c: 39808003030" selected>Bank Transfer</option>
+        <option value="upi:naveen26m@axl ">UPI 1</option>
+        <option value="upi:naveen26m@ybl">UPI 2</option>
+      </select>
+
+      {#if paymentType == "A/c: 39808003030"}
+        <div class="holdername">Name: NAVEEN M</div>
+        <div class="bank-ac">Bank Account: 39808003030</div>
+        <div class="bank-ifsc">IFSC Code: SBIN0000932</div>
+      {:else if paymentType == "upi:naveen26m@axl "}
+        <div class="holdername">Name: NAVEEN M</div>
+
+        <div class="upi">UPI ID: naveen26m@axl</div>
+      {:else if paymentType == "upi:naveen26m@ybl"}
+        <div class="holdername">Name: NAVEEN M</div>
+
+        <div class="upi">UPI ID: naveen26m@ybl</div>
+      {/if}
     </div>
   </div>
   <div class="additional-details">
     <h3>Enter Your Details</h3>
     <div class="input-container">
       <label for="date">Date of transaction:</label>
-      <input type="date" id="upi" name="upi" required bind:value={date} />
+      <input
+        type="date"
+        id="date"
+        name="date"
+        required
+        bind:value={date}
+        min="2024-06-02"
+        max={new Date(new Date().setDate(new Date().getDate()))
+          .toISOString()
+          .split("T")[0]}
+      />
     </div>
     <div class="input-container">
       <label for="txn-id">Transaction ID:</label>
@@ -87,13 +130,72 @@
         bind:value={transactionId}
       />
     </div>
+
+    <a
+      href="https://wa.me/+917904374673?text=Here%20is%20my%20screenshot%20for%20{permitName}!"
+      class="clickable sendScreenShot btn"
+      >Send Transaction Screenshot <i class="fa-brands fa-whatsapp"></i></a
+    >
+    <div class="sentCheck">
+      <input
+        type="checkbox"
+        name="screenShot"
+        id="screenShot"
+        bind:checked={screenShotSent}
+        value="true"
+      /> <span>I have sent the screenshot</span>
+    </div>
+
     <button id="submit-button" on:click={reqPayment}>Verify</button>
   </div>
 </div>
 
 <style>
+  .sentCheck {
+    margin: 1.2rem 0;
+  }
+  .sendScreenShot.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #25d366;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+  }
+
+  .sendScreenShot.btn:hover {
+    background-color: #128c7e;
+  }
+
+  #paymentType {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    margin: 1.5rem 0;
+  }
+
+  #paymentType option {
+    padding: 10px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+  }
+
+  #paymentType option[selected] {
+    background-color: #f0f0f0;
+  }
+
+  #paymentType:active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
   .payment-container {
-    width: 300px;
+    max-width: 500px;
+    /* width: 90%; */
     padding: 20px;
     background: rgba(255, 255, 255, 1);
     border-radius: 10px;
@@ -103,7 +205,7 @@
   }
 
   .payment-container h2 {
-    margin: 2rem 0 1.5rem;
+    margin: 2rem 5% 1.5rem;
   }
 
   /* .qr-code img {
@@ -117,7 +219,7 @@
       255,
       0.8
     ); /* Violet color with glassmorphism effect */
-    /* backdrop-filter: blur(5px); Glassmorphism effect */
+  /* backdrop-filter: blur(5px); Glassmorphism effect */
   /* }  */
 
   .transaction-details {

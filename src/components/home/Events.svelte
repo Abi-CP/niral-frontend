@@ -65,27 +65,27 @@
             <h5>Non-Tech Events</h5>
             <ul class="flex fdc aic jcc">
                 <li class="clickable">
-                    <Link to="/events/EscapeRoom">
+                    <Link to="/events/NonTech/EscapeRoom">
                     <h6>Escape Room</h6>
                     </Link>
                 </li>
                 <li class="clickable">
-                    <Link to="/events/MovieMayhem">
+                    <Link to="/events/NonTech/MovieMayhem">
                     <h6>Movie mayhem</h6>
                     </Link>
                 </li>
                 <li class="clickable">
-                    <Link to="/events/OruKadhaSollatumaSir">
+                    <Link to="/events/NonTech/OruKadhaSollatumaSir">
                     <h6>Oru Kadha Sollatuma Sir</h6>
                     </Link>
                 </li>
                 <li class="clickable">
-                    <Link to="/events/FandomQuiz">
+                    <Link to="/events/NonTech/FandomQuiz">
                     <h6>Fandom Quiz(anime)</h6>
                     </Link>
                 </li>
                 <li class="clickable">
-                    <Link to="/events/TechnicalConnection">
+                    <Link to="/events/NonTech/TechnicalConnection">
                     <h6>Technical connection</h6>
                     </Link>
                 </li>

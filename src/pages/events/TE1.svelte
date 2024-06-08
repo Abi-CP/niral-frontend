@@ -1,22 +1,27 @@
 <script>
   import EventComp from "../../components/EventComp.svelte";
 
-
+  import Rounds from '../../components/events/te1/Rounds.svelte'
   import Description from "../../components/events/te1/Description.svelte";
-  import Info from "../../components/events/te1/Info.svelte";
+  import Schedule   from "../../components/events/te1/Schedule.svelte";
+  import Rules from '../../components/events/te1/Rules.svelte'
   import Speaker from "../../components/events/te1/Speaker.svelte";
   import Contact from "../../components/events/te1/Contact.svelte";
-  let title = "Why Gen AI is inevitable for the Fortune500 companies";
-  let bannerUrl = "../../assets/img/WS1.png";
+  let title = "Code Relay";
+  let bannerUrl = "../../assets/img/events/coderelay.jpeg"
+  let nextRoute = "CipherCraft";
+  let prevRoute = "DataAlchemistsOdyssey";
+  let category = "tech";
+  
   // let subtitle = "Subtitle";
   // let bg = "../../assets/img/WS1.png"
   let bg = bannerUrl;
 </script>
 
-<EventComp {title} {bannerUrl} {bg}>
+<EventComp {title} {bannerUrl} {bg}{nextRoute}{prevRoute}{category}>
   <Description slot="description" />
-  <Speaker slot="rounds" />
-  <Info slot="rules" />
-  <Info slot="schedule" />
+  <Rounds slot="rounds" />
+  <Rules slot="rules" />
+  <Schedule slot="schedule" />
   <Contact slot="contact" />
 </EventComp>

@@ -8,11 +8,7 @@ Rs.350 onspot registration -->
 
   // var parser = new DOMParser();
   let eventDetails = [
-    {
-      title: "Takeaway",
-      description: "E Certificate",
-      icon: "fa-solid fa-certificate",
-    },
+    
     { title: "Date", description: "12/06/2024", icon: "fa-solid fa-calendar-days" },
     { title: "Time", description: "9.00am to 4.30pm", icon: "fa-solid fa-clock" },
     
@@ -20,7 +16,7 @@ Rs.350 onspot registration -->
 {
       title: "Price",
       description: "₹ 299 (Add. 10% offer for early bird)",
-      icon: "fa-solid fa-tag",
+      icon: "fa-solid fa-medal",
     },
 ,
   ];

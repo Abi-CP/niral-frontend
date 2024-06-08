@@ -1,23 +1,32 @@
 <div class="flex jcc fdc">
     <ul class="desc">
         <li>
-            <p>This workshop will talk about how Gen AI is disruptive the way the Data Analytics is perceived at large organisations.</p>
+            <p>Step into the ultimate trivia challenge, where knowledge and strategy combine in a race against the clock.</p>
         </li>
         <br>
         <li>
-            <p> It will also cover the aspects of the evolution of a chatbot from a word based Q&A engine to an intent based personal assistant via Gen AI.</p>
+            <p>  Participants will navigate through a series of questions designed to test their wits and resilience.</p>
         </li>
         <br>
         <li>
-            <p> Finally this workshop will also have a quick hands-on experience on the nuances of making use of Gen AI to the fullest with prompt engineering.</p>
+            <p> Beware, consecutive wrong answers could lead to elimination.</p>
+        </li>
+        <br>
+        <li>
+            <p> The participant who answers the most questions correctly within the time limit emerges victorious. .</p>
+        </li>
+        <br>
+        <li>
+            <p>Are you ready to outsmart and outlast the competition?
+            </p>
         </li>
     </ul>
-    <h4 class="pre-req">Pre-requisites:</h4>
+    <!-- <h4 class="pre-req">Pre-requisites:</h4>
     <ul class="pre-req">
         <li>
            <p> Participants are required to bring laptops.</p>
         </li>
-    </ul>
+    </ul> -->
 </div>
 
 <style>
@@ -31,6 +40,5 @@
         list-style: none;
        
     }
-    h4.pre-req{margin: 2.5rem 0 1.5rem;font-style: bold;font-size: 1rem;}
-    ul.pre-req{padding-left: 2rem;}
+ 
 </style>

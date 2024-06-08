@@ -8,8 +8,8 @@ let contacts = [
         "phone": "+91  86677 68824"
     },
     {
-        "name": "Dinesh Kumar",
-        "phone": "+91 77085 80647"
+         "name":"SHERBIN THARIKA",
+         "phone"   : "+91 9344062437"
     }
 ]
 
@@ -20,13 +20,3 @@ let email = "cegniral@gmail.com"
     <ContactCard name={contact.name} phone={contact.phone} />
 {/each}
 
-<div class="mail flex jcc">
-    <MailCard {email}/>
-</div>
-
-<style>
-    .mail{
-        width: 100%;
-        margin-top: 1.5rem;
-    }
-</style>

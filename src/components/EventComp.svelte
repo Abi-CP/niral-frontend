@@ -7,8 +7,8 @@
   export let bannerUrl;
   export let bg;
   export let nextRoute = "next";
-  export let prevRoute = "next";
-  export let catagory = "tech/nonTech";
+  export let prevRoute = "prev";
+  export let category = "tech/nonTech";
 
 
   export let entryInfo =
@@ -55,8 +55,8 @@
     }
   }
 
-  function handleNext(){ navigate(`/events/${catagory=='tech'?'tech':'NonTech'}/${nextRoute}`) }
-function handlePrev(){ navigate(`/events/${catagory=='tech'?'tech':'NonTech'}/${prevRoute}`) }
+  function handleNext(){ navigate(`/events/${category=='tech'?'Tech':'NonTech'}/${nextRoute}`) }
+function handlePrev(){ navigate(`/events/${category=='tech'?'Tech':'NonTech'}/${prevRoute}`) }
 </script>
 
 <div class="bgAnim">

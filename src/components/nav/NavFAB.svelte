@@ -8,14 +8,33 @@
 
   const links = [
     { to: "/", label: "Home", icon: "fa-solid fa-house" },
-    { to: "/workshops", label: "Workshops", icon: "fa-solid fa-screwdriver-wrench" },
-    { to: "/events", label: "Events", icon: "fa-solid fa-dice" },
-    { to: "/sponsors", label: "Sponsors", icon: "fa-solid fa-handshake-simple" },
+    {
+      to: "/workshops",
+      label: "Workshops",
+      icon: "fa-solid fa-screwdriver-wrench",
+    },
+    // { to: "/events", label: "Events", icon: "fa-solid fa-dice" },
+    {
+      to: "/sponsors",
+      label: "Sponsors",
+      icon: "fa-solid fa-handshake-simple",
+    },
+    { to: "/permits", label: "Permits", icon: "fa-solid fa-ticket" },
     { to: "/accommodation", label: "Accommodation", icon: "fa-solid fa-bed" },
     { to: "/contact", label: "Contact", icon: "fa-solid fa-phone" },
     { to: "/team", label: "Team", icon: "fa-solid fa-user" },
-    { to: "/account", label: "Account", icon: "fas fa-circle-user", authRequired: true }, // This needs to be conditionally rendered
-    { to: "/login", label: "Login", icon: "fas fa-arrow-right-to-bracket", authRequired: false },   // This needs to be conditionally rendered
+    {
+      to: "/account",
+      label: "Account",
+      icon: "fas fa-circle-user",
+      authRequired: true,
+    }, // This needs to be conditionally rendered
+    {
+      to: "/login",
+      label: "Login",
+      icon: "fas fa-arrow-right-to-bracket",
+      authRequired: false,
+    }, // This needs to be conditionally rendered
     // { to: "/", label: "Quick Search", icon: "fa-solid fa-search" },
   ];
 
@@ -23,9 +42,12 @@
     fabActive = !fabActive;
     if (navIcon.innerHTML == "☰") {
       navIcon.innerHTML = "×";
+
+      // navIcon.style.padding = "10px 0 0";
       document.body.style.overflow = "hidden";
     } else {
       navIcon.innerHTML = "☰";
+      // navIcon.style.padding = "0 0 10px";
       document.body.style.overflow = "auto";
     }
   }
@@ -79,8 +101,11 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #333;
+    background-color: #ac0d6e;
+
+    /* padding: 0 0 5px; */
     color: #fff;
+    font-size: 1.2rem;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -89,6 +114,7 @@
     align-items: center;
     cursor: pointer;
     z-index: 999;
+    box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.3);
   }
 
   #navBox {

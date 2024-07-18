@@ -10,6 +10,10 @@ let contacts = [
 {
     "name": "Malini",
     "phone": "7904653721"
+},
+{
+    "name": "SHALINI.S",
+    "phone": "+91 6380235446"
 }
 
 

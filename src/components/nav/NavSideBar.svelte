@@ -5,8 +5,9 @@
   const links = [
     { to: "/", label: "Home", icon: "fa-solid fa-house" },
     { to: "/workshops", label: "Workshops", icon: "fa-solid fa-screwdriver-wrench" },
-    { to: "/events", label: "Events", icon: "fa-solid fa-calendar-days" },
+    // { to: "/events", label: "Events", icon: "fa-solid fa-calendar-days" },
     { to: "/sponsors", label: "Sponsors", icon: "fa-solid fa-gem" },
+    { to: "/permits", label: "Permits", icon: "fa-solid fa-ticket" },
     { to: "/accommodation", label: "Accommodation", icon: "fa-solid fa-bed" },
     { to: "/team", label: "Team", icon: "fa-solid fa-users" },
     { to: "/contact", label: "Contact", icon: "fa-regular fa-paper-plane" },
@@ -116,7 +117,7 @@
 
   p {
     color: #fff; /* Text color */
-    font-weight: bold;
+    font-weight: 500;
     display: inline-block; /* Align text and image */
     /* flex-grow: 0; */
   }

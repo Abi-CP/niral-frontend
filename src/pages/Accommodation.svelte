@@ -4,10 +4,23 @@
   import { setContext } from "svelte";
   import LoginForm from "../components/LoginForm.svelte";
   import Payment from "../components/Payment.svelte";
+  import { navigate } from "svelte-routing";
 
   import ContactCard100 from "../utils/ContactCard100.svelte";
   import toast from "svelte-french-toast";
+
   let img;
+
+  onMount(async () => {
+    img = new Image();
+    img.src = "../assets/gif/spirits-blue.gif";
+    img.onload = () => {
+      const bgAnimImg = document.querySelector(".bgAnim img");
+      if (bgAnimImg instanceof HTMLImageElement) {
+        bgAnimImg.src = img.src;
+      }
+    };
+  });
 
   let permitID = "p4";
   let permitName = undefined;
@@ -27,6 +40,11 @@
   setContext("hideLoginComp", hideLoginComp);
 
   function handleRegister() {
+    // console.log(permitID);
+    showPopup = true;
+    loginComp = !$isLoggedIn;
+    paymentComp = true;
+
     const storedData = sessionStorage.getItem("userDetails");
 
     // Parse the data back into an object
@@ -40,11 +58,6 @@
       );
       return;
     }
-    // console.log(permitID);
-    showPopup = true;
-    loginComp = !$isLoggedIn;
-    console.log(loginComp);
-    paymentComp = true;
   }
 
   function hideLoginComp() {
@@ -54,17 +67,6 @@
   function closePopup() {
     showPopup = false;
   }
-
-  onMount(async () => {
-    img = new Image();
-    img.src = "../assets/gif/spirits-blue.gif";
-    img.onload = () => {
-      const bgAnimImg = document.querySelector(".bgAnim img");
-      if (bgAnimImg instanceof HTMLImageElement) {
-        bgAnimImg.src = img.src;
-      }
-    };
-  });
 
   let showModal = false;
   let accomCostDates = [false, true, true];
@@ -153,7 +155,8 @@
       <div class="bookAccomodation flex jcc">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="button" on:click={handleRegister}>
+        <!-- <div class="button" on:click={handleRegister}> -->
+          <div class="button" on:click={()=>{navigate('/permits')}}>
           Book Accommodation<span class="button-border" />
         </div>
       </div>
@@ -336,7 +339,7 @@
     height: 100vh;
     height: 100dvh;
     width: 100%;
-    z-index: -10;
+    z-index: -100;
   }
   .bgAnim img {
     width: 100%;
@@ -364,8 +367,8 @@
     background: rgba(0, 0, 0, 0.4);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 35, 0.37);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px) saturate(120%);
-    -webkit-backdrop-filter: blur(10px) saturate(100%);
+    /* backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(100%); */
     border-radius: 1.5vh;
     color: #fff;
   }

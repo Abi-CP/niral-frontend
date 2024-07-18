@@ -81,7 +81,9 @@
   }
 
   // {"_id":"2023178038","details":{"emailId":"abi@mail.com","firstName":"Abi","lastName":"CP","mobileNo":"9090909000","rollNo":"2023178038","dateOfBirth":"1 January 1990","department":"ISt","branch":"MCA","year":1,"college":"CEG","_id":"6648d9945705e331a90d8d8f"},"organization":"cegian","__v":0}
-// console.log(userDetails.paymentHistory);
+  // console.log(userDetails.paymentHistory);
+
+  // console.log(userDetails.organization == "cegian" && /^202317(8|9)/.test(userDetails._id))
 </script>
 
 <!-- <div class="root"> -->
@@ -128,27 +130,37 @@
             <h4>My Permits</h4>
             <div class="pHolder">
               <div class="scrollable flex fdc aic permitsContainer">
-                {#if userDetails.permit}
-                  
-                  {#if userDetails.permit.p1}
-                    <WorkShopPermit
-                      date={userDetails.permit.p1.updatedDate}
-                      status={userDetails.permit.p1.status}
-                      transactionDate={userDetails.permit.p1.transactionDate}
-                      transactionId={userDetails.permit.p1.transactionId}
-                      verifiedDate={userDetails.permit.p1.updatedDate}
-                    />
-                  {/if}
-                  {#if userDetails.permit.p4}
-                  <AccomodationPermit
-                    date={userDetails.permit.p4.updatedDate}
-                    status={userDetails.permit.p4.status}
-                    transactionDate={userDetails.permit.p4.transactionDate}
-                    transactionId={userDetails.permit.p4.transactionId}
-                    verifiedDate={userDetails.permit.p4.updatedDate}
-                    validity={userDetails.permit.p4.validity}
+                {#if userDetails.organization == "cegian" && /^202317(8|9)/.test(userDetails._id)}
+                
+                  <WorkShopPermit
+                    date={"11-07-2024 00:00:00"}
+                    status={"verified"}
+                    transactionDate={"Free for MCA"}
+                    transactionId={"Free for MCA"}
+                    verifiedDate={"11-07-2024 00:00:00"}
+                  />
+                {:else if userDetails.permit && userDetails.permit.p1}
+                  <WorkShopPermit
+                    date={userDetails.permit.p1.updatedDate}
+                    status={userDetails.permit.p1.status}
+                    transactionDate={userDetails.permit.p1.transactionDate}
+                    transactionId={userDetails.permit.p1.transactionId}
+                    verifiedDate={userDetails.permit.p1.updatedDate}
                   />
                 {/if}
+                {#if userDetails.permit}
+                  {#if userDetails.permit.p4}
+                    <AccomodationPermit
+                      date={userDetails.permit.p4.updatedDate}
+                      status={userDetails.permit.p4.status}
+                      transactionDate={userDetails.permit.p4.transactionDate}
+                      transactionId={userDetails.permit.p4.transactionId}
+                      verifiedDate={userDetails.permit.p4.updatedDate}
+                      validity={userDetails.permit.p4.validity}
+                    />
+                  {/if}
+                  <!-- {#if userDetails.permit.p2}{/if}
+                {#if userDetails.permit.p3}{/if} -->
                 {/if}
               </div>
             </div>
@@ -172,14 +184,18 @@
                     <th>Updated Date</th>
                   </tr>
                 </thead>
-                <tbody >
+                <tbody>
                   {#each Object.entries(userDetails.paymentHistory) as [transactionId, transaction]}
                     <tr>
                       <td>{transactionId}</td>
                       <td>{transaction.transactionDate}</td>
                       <td>{transaction.status}</td>
                       <td>{transaction.paymentType}</td>
-                      <td>{transaction.updatedDate ? transaction.updatedDate : 'N/A'}</td>
+                      <td
+                        >{transaction.updatedDate
+                          ? transaction.updatedDate
+                          : "N/A"}</td
+                      >
                       <!-- <td>{transaction._id?.$oid || ""}</td> -->
                     </tr>
                   {/each}
@@ -378,7 +394,7 @@
     .title .pHolder {
       transform: translateX(-50px);
     }
-    .permitsContainer{
+    .permitsContainer {
       flex-direction: column;
       align-items: center;
     }
@@ -401,7 +417,7 @@
   }
 
   @media (min-width: 1200px) {
-    .card{
+    .card {
       /* max-width: auto; */
     }
   }
@@ -417,7 +433,8 @@
     table-layout: auto; /* Allow table cells to adjust width based on content */
   }
 
-  th, td {
+  th,
+  td {
     padding: 8px;
     text-align: center;
     white-space: nowrap; /* Prevent text from wrapping */

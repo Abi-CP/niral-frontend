@@ -5,7 +5,7 @@
     import Description from "../../components/events/nte4/Description.svelte";
     import Schedule   from "../../components/events/nte4/Schedule.svelte";
     import Rules from '../../components/events/nte4/Rules.svelte'
-    import Speaker from "../../components/events/nte4/Speaker.svelte";
+
     import Contact from "../../components/events/nte4/Contact.svelte";
     let title = "Fandom Quiz";
     let bannerUrl = "../../assets/img/events/fandomquiz.jpeg"

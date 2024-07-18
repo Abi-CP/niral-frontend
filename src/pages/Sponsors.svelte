@@ -2,8 +2,7 @@
   import { onMount } from "svelte";
   import { navigate } from "svelte-routing";
 
-onMount(() => {
-    navigate("/")
-})
-
-  </script>
+  onMount(() => {
+    navigate("/");
+  });
+</script>

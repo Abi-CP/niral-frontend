@@ -5,7 +5,6 @@
   import Description from "../../components/events/te1/Description.svelte";
   import Schedule   from "../../components/events/te1/Schedule.svelte";
   import Rules from '../../components/events/te1/Rules.svelte'
-  import Speaker from "../../components/events/te1/Speaker.svelte";
   import Contact from "../../components/events/te1/Contact.svelte";
   let title = "Code Relay";
   let bannerUrl = "../../assets/img/events/coderelay.jpeg"

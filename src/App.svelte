@@ -9,6 +9,8 @@
   import { isLoggedIn } from "./stores/loginStatus";
 
   import { serverUrl } from "../public/env";
+  import Particles from "./components/Particles.svelte";
+  import StarTail from "./components/StarTail.svelte";
 
   let screenWidth = window.innerWidth;
 
@@ -33,21 +35,34 @@
     }
   }
 
-  onMount(async () => {
-    // if(!sessionStorage.getItem("userDetails")){
+  // onMount(async () => {
+  //   // if(!sessionStorage.getItem("userDetails")){
 
-    const authToken = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("authToken="));
-    if (authToken) {
-      const token = authToken.split("=")[1];
-      await checkLogin(token);
-    }
-    // }
-  });
+  //   const authToken = document.cookie
+  //     .split("; ")
+  //     .find((row) => row.startsWith("authToken="));
+  //   if (authToken) {
+  //     const token = authToken.split("=")[1];
+  //     await checkLogin(token);
+  //   }
+  //   // }
+  // });
+
+  // setTimeout(() => {
+  //   toast("NIRAL '24 has been postponed to August 2024 (Tentatively)", {
+  //     icon: "ℹ️",
+  //     duration: 7500,
+  //   });
+  // }, 2500);
+
+  // setTimeout(() => {
+  //   alert("NIRAL '24 has been postponed to August 2024 (Tentatively) ");
+  // }, 20000);
 </script>
 
 <main>
+  <!-- <Particles /> -->
+  <!-- <StarTail /> -->
   <Router>
     <nav>
       <Nav {screenWidth} />

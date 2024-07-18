@@ -5,7 +5,6 @@
     import Description from "../../components/events/nte5/Description.svelte";
     import Schedule   from "../../components/events/nte5/Schedule.svelte";
     import Rules from '../../components/events/nte5/Rules.svelte'
-    import Speaker from "../../components/events/nte5/Speaker.svelte";
     import Contact from "../../components/events/nte5/Contact.svelte";
     let title = "Technical Connections";
     let bannerUrl = "../../assets/img/events/connection.png"

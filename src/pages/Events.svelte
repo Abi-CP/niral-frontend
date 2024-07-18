@@ -2,9 +2,9 @@
   import { onMount } from "svelte";
     import EventCard from "../components/events/EventCard.svelte";
   import { navigate } from "svelte-routing";
-    // onMount(() => {
-    //     navigate('/')
-    // })
+    onMount(() => {
+        navigate('/')
+    })
 </script>
 <div class="cardContainer flex center wrap">
     <EventCard/>

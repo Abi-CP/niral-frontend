@@ -31,21 +31,30 @@
   }
 
   // Update the countdown every second
-  onMount(() => {
-    updateCountdown();
-    const timerInterval = setInterval(updateCountdown, 1000);
-    return () => clearInterval(timerInterval);
-  });
+  // onMount(() => {
+  //   updateCountdown();
+  //   const timerInterval = setInterval(updateCountdown, 1000);
+  //   return () => clearInterval(timerInterval);
+  // });
 </script>
 
-<p id="timer">
+<!-- <p id="timer">
   <span class="days">{days}</span>D <span class="hours">{hours}</span>H
   <span class="minutes">{minutes}</span>M
   <span class="seconds">{seconds}</span>S
-</p>
+</p> -->
+<p class="msg" style="text-align: center;">Stay Tuned...</p>
 
 <style>
-  #timer {
+    * {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+  }
+  #timer, .msg {
     margin-top: 15vh;
     font-size: 1.2rem;
     color: red;
@@ -58,14 +67,14 @@
   .days,
   .minutes,
   .hours,
-  .seconds {
+  .seconds, .msg {
     color: white;
     font-size: 5rem;
     font-family: "ds digi";
   }
 
   @media (max-width: 1000px) {
-    #timer {
+    #timer, .msg {
       margin-top: 7vh;
     }
   }

@@ -8,7 +8,7 @@
   export let permitPrice;
 
   let transactionId;
-  let date;
+  let date = new Date().toLocaleDateString().split("/").reverse().join("-");
   let paymentType = "A/c: 39808003030";
   let screenShotSent = false;
   let url = `${serverUrl}/participants/permit`;
@@ -109,16 +109,14 @@
     <div class="input-container">
       <label for="date">Date of transaction:</label>
       <input
-        type="date"
-        id="date"
-        name="date"
-        required
-        bind:value={date}
-        min="2024-06-02"
-        max={new Date(new Date().setDate(new Date().getDate()))
-          .toISOString()
-          .split("T")[0]}
-      />
+      type="date"
+      id="date"
+      name="date"
+      required
+      bind:value={date}
+      min="2024-06-02"
+      max={new Date().toLocaleDateString().split("/").reverse().join("-")}
+  />
     </div>
     <div class="input-container">
       <label for="txn-id">Transaction ID:</label>

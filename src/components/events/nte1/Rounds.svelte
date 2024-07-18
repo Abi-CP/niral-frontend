@@ -11,7 +11,7 @@
       <div class="round">  
         <h3><i class="fa-solid fa-bolt"></i> Single Round </h3> 
         <p>Skilled teams for the mission are to be recruited by the Forest Rangers. The recruited team is entrusted with the mission to retrieve the vital research Dr. Nova left behind. This mission could be a one-way trip, as the last known location of her research station is surrounded by a treacherous, uncharted wilderness.</p>
-        <p>.Only Dr. Nova had the knowledge to navigate a safe return. Since previous teams have failed to return, the mission has two objectives: to decode the way back and to retrieve Dr. Nova's research.</p>
+        <p>Only Dr. Nova had the knowledge to navigate a safe return. Since previous teams have failed to return, the mission has two objectives: to decode the way back and to retrieve Dr. Nova's research.</p>
         <p>Time is critical, as the oxygen supply embedded in the team's gear lasts only a few minutes in the dense, toxic forest. If the first objective is met, the team will survive. But if both are achieved, the team will be hailed as the saviours of humanity! The hope of our species' survival rests on the success of this mission...
         </p>
       </div>

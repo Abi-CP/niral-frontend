@@ -31,32 +31,11 @@
   import NTE3 from "../pages/events/NTE3.svelte";
   import NTE4 from "../pages/events/NTE4.svelte";
   import NTE5 from "../pages/events/NTE5.svelte";
-  import Hackathon from "../pages/events/Hackathon.svelte";
+  import HG from "../pages/events/HG.svelte";
   import NotFound from "../pages/NotFound.svelte";
 
 </script>
 
-<!-- 1. Code relay (1) 
-2. CipherCraft (2)
-3. Software presentation (1 or 2)
-4. Code Brawl (1) 
-5. Blind typing
-6. Design Web
-7. Sql war
-8. Data Alchemists Odyssey
-9. ~~The Game~~ 
-
-### Non Tech Events
-
-1. Escape Room
-2. Movie mayhem
-3. Oru kadha sollatuma sir
-4. Fandom Quiz(anime)
-5. Technical connection
-
-### Flagship Event
-
-Hack X Game -->
 
 <Router>
   <Route path="/" component={Home} />
@@ -90,6 +69,9 @@ Hack X Game -->
   <Route path="/events/NonTech/OruKadhaSollatumaSir" component={NTE3} />
   <Route path="/events/NonTech/FandomQuiz" component={NTE4} />
   <Route path="/events/NonTech/TechnicalConnection" component={NTE5} />
-  <Route path="/events/HackXGame" component={Hackathon} />
+  <Route path="/events/HackXGame" component={HG} />
+
+  
+  <Route path="/notfound" component={NotFound} />
   <Route path="/*" component={NotFound} />
 </Router>

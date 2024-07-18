@@ -7,7 +7,7 @@
     import Rules from "../../components/events/te5/Rules.svelte";
     import Contact from "../../components/events/te5/Contact.svelte";
     let title = "BLIND CODE TYPING CHALLENGE ";
-    let bannerUrl = "../../assets/img/events/blindcoding.png";
+    let bannerUrl = "../../assets/img/events/blindcoding.jpg";
     let nextRoute = "DesignWeb";
     let prevRoute = "CodeBrawl";
     let category = "tech";

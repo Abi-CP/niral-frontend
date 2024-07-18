@@ -4,16 +4,15 @@
   import LoginForm from "./LoginForm.svelte";
   import Payment from "./Payment.svelte";
   import WindowButton from "./WindowButton.svelte";
+  import { navigate } from "svelte-routing";
 
   export let title;
   export let subtitle = undefined;
   export let bannerUrl;
   export let bg;
-  export let eventID = undefined;
+  // export let eventID = undefined;
 
   let validity = "June 12, 2024";
-
-
 
   export let permitID = "p1";
   export let permitName = undefined;
@@ -22,18 +21,18 @@
   export let entryInfo =
     '"Gen AI Workshop Permit" is required to attend this workshop.';
 
-  let registerBtnValue = [eventID, permitID];
+  // let registerBtnValue = [eventID, permitID];
 
   let descriptionSelected = true;
   let speakersSelected = false;
   let infoSelected = false;
   let contactSelected = false;
 
-  let loginComp = false;
-  let paymentComp = false;
-  let showPopup = false;
+  // let loginComp = false;
+  // let paymentComp = false;
+  // let showPopup = false;
 
-  let parentFunc = true;
+  // let parentFunc = true;
 
   function changeSelected(event) {
     if (event.target.value == "1") {
@@ -59,26 +58,26 @@
     }
   }
 
-  function handleRegister() {
-    showPopup = true;
-    loginComp = !$isLoggedIn;
-    paymentComp = true;
-  }
+  // function handleRegister() {
+  //   showPopup = true;
+  //   loginComp = !$isLoggedIn;
+  //   paymentComp = true;
+  // }
 
-  function hideLoginComp() {
-    loginComp = false;
-  }
+  // function hideLoginComp() {
+  //   loginComp = false;
+  // }
 
-  function closePopup() {
-    showPopup = false;
-  }
+  // function closePopup() {
+  //   showPopup = false;
+  // }
 
-  function handleOutsideClick() {
-    if (event.target === document.getElementById("popupBackground")) {
-      closePopup();
-    }
-  }
-  setContext("hideLoginComp", hideLoginComp);
+  // function handleOutsideClick() {
+  //   if (event.target === document.getElementById("popupBackground")) {
+  //     closePopup();
+  //   }
+  // }
+  // setContext("hideLoginComp", hideLoginComp);
 </script>
 
 <div class="bgAnim">
@@ -101,16 +100,18 @@
           <div class="titleContainer">
             <h3 class="title">{title}</h3>
             {#if subtitle}
-            <h5 class="subtitle">{subtitle}</h5>
+              <h5 class="subtitle">{subtitle}</h5>
             {/if}
           </div>
-          <button
+          <!-- <button
             class="regButton top flex aic jcc"
             id="regDown"
-            value={registerBtnValue}
-            on:click={handleRegister}
+            on:click={() => {
+              navigate('/permits')
+            }}
             ><span class="regButton-content">Register</span></button
-          >
+          > -->
+          <!-- value={registerBtnValue} -->
         </header>
         <div class="entryInfoContainer clickable flex jcc aic">
           <div class="entryInfo">{entryInfo}</div>
@@ -184,9 +185,16 @@
           </div>
         </article>
         <div class="bottomRegisterBtnContainer flex jcc">
-          <button class="regButton bottom" id="regDown" value={registerBtnValue} on:click={handleRegister}
-            ><span class="regButton-content">Register</span></button
+          <!-- <button
+            class="regButton bottom"
+            id="regDown"
+            on:click={() => {
+              navigate('/permits')
+            }}
           >
+          <span class="regButton-content">Register</span></button
+          > -->
+          <!-- value={registerBtnValue} -->
         </div>
       </main>
       <div class="bottomBar flex jcsb"></div>
@@ -198,25 +206,25 @@
     </div>
   </div>
 </div>
-{#if showPopup}
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div
+<!-- {#if showPopup} -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+  <!-- <div
     id="popupBackground"
     class="popup-background"
     on:click={handleOutsideClick}
-  >
-    {#if loginComp}
+  > -->
+    <!-- {#if loginComp}
       <div class="loginComp comp flex aic jcc">
         <LoginForm {parentFunc} />
       </div>
     {:else if paymentComp && $isLoggedIn}
       <div class="paymentComp comp flex aic jcc">
-        <Payment  {permitID} {permitName} {permitPrice} validity={validity} />
+        <Payment {permitID} {permitName} {permitPrice} {validity} />
       </div>
     {/if}
   </div>
-{/if}
+{/if} -->
 
 <!-- </div>
 {/if} -->
@@ -340,7 +348,7 @@
 
   header {
     margin-top: 1.5vh;
-    height: 8vh;
+    /* height: 8vh; */
     width: 100%;
     color: #fff;
     padding: 0 3vw;

@@ -84,7 +84,7 @@ function handlePrev(){ navigate(`/events/${category=='tech'?'Tech':'NonTech'}/${
           </div>
         </header>
         <div class="entryInfoContainer clickable flex jcc aic">
-          <div class="entryInfo" on:click={()=>{navigate("/permits")}}>{entryInfo}</div>
+          <div class="entryInfo" on:click={()=>{navigate("/permits")}}>{entryInfo}<span class="entryInfo" style="color: #8ec9ff; padding-left: 5px; border:none;">Click Here to Get Permits</span></div>
         </div>
         <article class="flex fdrr jcsb aic jcc">
           <div class="detailsContainer flex fdc aic jcse">
@@ -143,12 +143,12 @@ function handlePrev(){ navigate(`/events/${category=='tech'?'Tech':'NonTech'}/${
                   >
                     <slot name="rules"></slot>
                   </div>
-                  {:else if scheduleSelected}<div
+                  <!-- {:else if scheduleSelected}<div
                     class="contactCardContainer scrollable flex fdc jcse aic"
                     style="width: 100%;height:100%"
                   >
                     <slot name="schedule"></slot>
-                  </div>
+                  </div> -->
                 {:else if contactSelected}<div
                     class="contactCardContainer scrollable flex fdc jcse aic"
                     style="width: 100%;height:100%"
@@ -298,7 +298,7 @@ function handlePrev(){ navigate(`/events/${category=='tech'?'Tech':'NonTech'}/${
 
   header {
     margin-top: 1.5vh;
-    height: 8vh;
+    /* height: 8vh; */
     width: 100%;
     color: #fff;
     padding: 0 3vw;

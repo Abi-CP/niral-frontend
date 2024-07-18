@@ -5,7 +5,6 @@
     import Description from "../../components/events/nte3/Description.svelte";
     import Schedule   from "../../components/events/nte3/Schedule.svelte";
     import Rules from '../../components/events/nte3/Rules.svelte'
-    import Speaker from "../../components/events/nte3/Speaker.svelte";
     import Contact from "../../components/events/nte3/Contact.svelte";
     let title = "Oru Kadha Sollatuma Sir";
     let bannerUrl = "../../assets/img/events/orukadha.jpg"

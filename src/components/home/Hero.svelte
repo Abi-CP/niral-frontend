@@ -20,10 +20,19 @@
       <span class="red">A</span>ll <span class="red">O</span>dds<span class="red">!</span>
     </p>
     <Timer />
+     <!-- <h3></h3> -->
   </div>
 </div>
 
 <style>
+    * {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+  }
   @font-face {
     font-family: "adelia";
     src: url("/assets/fonts/adelia.ttf") format("truetype");
@@ -46,6 +55,8 @@
 
   #slogan {
     animation-play-state: paused;
+    overflow-x: hidden;
+
   }
 
   #slogan:hover {

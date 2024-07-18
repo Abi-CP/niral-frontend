@@ -5,7 +5,6 @@
     import Description from "../../components/events/nte1/Description.svelte";
     import Schedule   from "../../components/events/nte1/Schedule.svelte";
     import Rules from '../../components/events/nte1/Rules.svelte'
-    import Speaker from "../../components/events/nte1/Speaker.svelte";
     import Contact from "../../components/events/nte1/Contact.svelte";
     let title = "Escape Room";
     let bannerUrl = "../../assets/img/events/escaperoom.png"

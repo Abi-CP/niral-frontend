@@ -1,12 +1,14 @@
+
+
 <div class="holder">
   <div style="color:white;width: fit-content; height: fit-content;" class="section heading">
-    <h5 class="headingTxt">About</h5>
+    <h5 class="headingTxt unselectable">About</h5>
   </div>
   <div class="section flex fdc aic">
-    <h4 class="aboutTitle">College of Engineering Guindy</h4>
+    <h4 class="aboutTitle unselectable">College of Engineering Guindy</h4>
     <div class="container flex">
       <div class="glassCard flex aic jcc">
-        <p>
+        <p class="unselectable">
           One of the most prestigious universities of India, College of
           Engineering Guindy has established its prowess in guiding countless
           young minds to glory through the excellence of technical education.
@@ -22,10 +24,9 @@
     </div>
   </div>
   <div class="section flex fdc aic">
-    <h4 class="aboutTitle association">Association of Computer Application</h4>
-    <div class="container flex fdrr">
+    <div class="container flex fdrr unselectable">
       <div class="glassCard flex aic jcc">
-        <p>
+        <p >
           The Association of Computer Application is formulated to conduct
           Computer Applications related activities and symposiums round the year
           nurturing the academic experience of the students by their active
@@ -38,13 +39,13 @@
     </div>
   </div>
   <div class="section flex fdc aic">
-    <h4 class="aboutTitle">Niral 2024</h4>
+    <h4 class="aboutTitle unselectable">Niral 2024</h4>
     <div class="container flex">
       <div class="glassCard flex aic jcc">
-        <p>
+        <p class="unselectable">
           Niral is a national level technical symposium organized by the
           postgraduate students of MCA started from the year 2011. NIRAL'24 is
-          planned to be organized on June 13, 14 and 15 2024. This is a symposium
+          planned to be organized in August 2024 (tentatively). This is a symposium
           that has an implied academic aspect that distinguishes it from other
           symposiums. Through this symposium, every student is given an
           opportunity of greater degree knowledge. It would be a great platform
@@ -161,6 +162,9 @@
       width: 80% !important;
       margin: auto;
     }
+    .glassCard {
+      width: 90vw !important;
+    }
   }
 
   @media (max-width: 768px) {
@@ -171,8 +175,6 @@
       padding: 2vh 0;
     }
 
-    .glassCard {
-      width: 90vw !important;
-    }
+
   }
 </style>

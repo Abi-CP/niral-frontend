@@ -1,7 +1,7 @@
 <script>
   import { Link, navigate } from "svelte-routing";
   import { toast } from "svelte-french-toast";
-  import { isLoggedIn } from "../stores/loginStatus";
+  import { isLoggedIn, userDetailsStore } from "../stores/loginStatus";
   import { getContext } from "svelte";
   import { showToast } from "../lib/toast";
   import { serverUrl } from "../../public/env";
@@ -20,38 +20,39 @@
       showToast("error", "Please fill in all fields.");
       return;
     }
-
     try {
-      const response = await fetch(`${serverUrl}/participants/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+  const response = await fetch(`${serverUrl}/participants/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  });
 
-      if (!response) {
-        showToast("error", "err_connection_refused");
-      } else if (response.ok) {
-        const { token, userDetails } = await response.json();
-        document.cookie = `authToken=${token}; path=/;`;
-        sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
-        isLoggedIn.set(true);
-        showToast("success", "Login successful!");
-        if (toNavigate) navigate("/account");
-        if (parentFunc) hideLoginComp();
-      } else {
-        const responseData = await response.json();
-        if (responseData.errorMessage) {
-          showToast("error", responseData.errorMessage);
-        } else {
-          showToast("error", "An error occurred during login");
-        }
-      }
-    } catch (error) {
-      console.log("Error during login: ", error);
-      showToast("error", "Error Connecting to the Server");
+  if (response.ok) {
+    const { token, userDetails } = await response.json();
+    document.cookie = `authToken=${token}; path=/;`;
+    sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
+    isLoggedIn.set(true);
+    showToast("success", "Login successful!");
+    if (toNavigate) navigate("/account");
+    if (parentFunc) hideLoginComp();
+    userDetailsStore.set(userDetails);
+  } else {
+    // Handle HTTP errors
+    const responseData = await response.json();
+    if (responseData.errorMessage) {
+      showToast("error", responseData.errorMessage);
+    } else {
+    showToast("error", "Error Connecting to the Server");
     }
+  }
+} catch (error) {
+  // Handle network errors
+  console.log("Error during login: ", error);
+}
+
+
   };
 </script>
 
@@ -86,7 +87,9 @@
 
     <div class="log-form-group">
       <p>
-        Don't have an account? <Link to="/create-account"><span style="color: #008cff;">Create Account</span> </Link>
+        Don't have an account? <Link to="/create-account"
+          ><span style="color: #008cff;">Create Account</span>
+        </Link>
       </p>
     </div>
 

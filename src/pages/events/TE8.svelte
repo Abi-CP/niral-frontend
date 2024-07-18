@@ -6,8 +6,8 @@
     import Schedule from "../../components/events/te8/Schedule.svelte";
     import Rules from "../../components/events/te8/Rules.svelte";
     import Contact from "../../components/events/te8/Contact.svelte";
-    let title = "DataAlchemistsOdyssey";
-    let bannerUrl = "../../assets/img/WS1.png";
+    let title = "Data Alchemists Odyssey";
+    let bannerUrl = "../../assets/img/events/dataAlchemistsOdyssey.jpg";
     let nextRoute = "CodeRelay";
     let prevRoute = "SqlWar";
     let category = "tech";

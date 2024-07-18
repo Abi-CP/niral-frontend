@@ -1,153 +1,272 @@
 <script>
-  export let name = "N/A";
-  export let validity = "14, 15, June";
-  export let price = "₹";
-  export let waveText = "N/A";
+  import BuyPermit from "../components/permits/BuyPermit.svelte";
+  import { onMount } from "svelte";
+  import { isLoggedIn } from "../stores/loginStatus";
+  import { setContext } from "svelte";
+  import LoginForm from "../components/LoginForm.svelte";
+  import Payment from "../components/Payment.svelte";
+  import toast from "svelte-french-toast";
+  import { navigate } from "svelte-routing";
 
-  let isExpired = false;
+  let img;
+  onMount(async () => {
+    img = new Image();
+    img.src = "../assets/gif/spirits-blue.gif";
+    img.onload = () => {
+      const bgAnimImg = document.querySelector(".bgAnim img");
+      if (bgAnimImg instanceof HTMLImageElement) {
+        bgAnimImg.src = img.src;
+      }
+    };
+  });
 
-  let isExpanded = false;
+  function handleBuyPermit(event) {
+    switch (event.detail.permitId) {
+      case "p1":
+        permitID = "p1";
+        permitName = "Gen AI Workshop Permit";
+        permitPrice = 299;
+        validity = "June 12, 2024";
+        buyPermitFunc();
+        break;
 
-  function toggleExpand() {
-    isExpanded = !isExpanded;
+      case "p2":
+        permitID = "p2";
+        permitName = "Hack X Game Permit";
+        permitPrice = 120;
+        validity = "June 12, 2024";
+        buyPermitFunc();
+        break;
+      case "p3":
+        permitID = "p3";
+        permitName = "Events Permit";
+        permitPrice = 120;
+        validity = "June 13-15, 2024";
+        buyPermitFunc();
+        break;
+
+      case "p4":
+       navigate('/accommodation')
+        break;
+    }
   }
 
-  waveText = `Permit Verification request have been submitted. Kindly wait until verification.`;
+  let permitID = "p4";
+  let permitName = undefined;
+  let permitPrice;
+  let validity;
 
-  let spans = [];
+  let loginComp = false;
+  let paymentComp = false;
+  let showPopup = false;
 
-  waveText.split("").forEach((char, index) => {
-    spans.push({ char, delay: index % 30 });
-  });
+  let parentFunc = true;
+
+  function handleOutsideClick() {
+    if (event.target === document.getElementById("popupBackground")) {
+      closePopup();
+    }
+  }
+  setContext("hideLoginComp", hideLoginComp);
+
+  function buyPermitFunc() {
+    showPopup = true;
+    loginComp = !$isLoggedIn;
+    paymentComp = true;
+  }
+
+  function hideLoginComp() {
+    loginComp = false;
+  }
+
+  function closePopup() {
+    showPopup = false;
+  }
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-<div
-  class="ticket {isExpired ? 'expired' : ''} {isExpanded ? 'expanded' : ''}"
-  tabindex="0"
-  on:focus={toggleExpand}
-  on:blur={() => (isExpanded = false)}
->
-  <div class="flex jcsb">
-    <h4>{name}</h4>
-  </div>
-  <div class="flex jcsb">
-    <div>
-      <p class="price">{price}</p>
-    </div>
-    <div class="flex aie">
-      {#if !isExpanded}
-        <i class="fa-solid fa-plus"></i>{/if}
-    </div>
-  </div>
-  <div class="container">
-    <p style={isExpired ? "text-decoration: line-through;" : ""}>
-      Date Valid: {validity}
-    </p>
-    <div class="details">
-      <div class="waveTextContainer">
-        <div class="wave-text">
-          {#each spans as span, index (index)}
-            <span style="--i: {span.delay}">{span.char}</span>
-          {/each}
-        </div>
+<div class="bgAnim">
+  <img src="" alt="" srcset="" />
+</div>
+<div class="bgBlur"></div>
+<div class="pageRoot flex aic jcse fdc">
+  <h3>Get Your Permits Now!</h3>
+  <div class="infoContainer flex aic jcc" style="color: white; margin-bottom: 20px;"><p style="border: .5px solid white; border-radius: 10px; padding: 10px;text-align:center;"><span style="color: #ff3130;">OFFLINE REGISTRATIONS ALLOWED FOR WORKSHOP.</span> <br> Kindly contact: Saravana Kumar +91 75300 21670; Renuga +91 86677 68824 </p></div>
+  
+  <div class="container flex jcc">
+    <div class="wrapper">
+      <div class="imgContainer">
+        <img
+          src="../assets/img/permits/p4.png"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div class="permitContainer">
+        <BuyPermit
+          name={"Accomodation Permit"}
+          validity={"June 13, 14 & 15, 2024"}
+          price={"₹ 250 - ₹ 400 per day"}
+          waveText={"This permit let you avail the accomodation option for the NIRAL '24. This option is allowed only for the Participants of Niral '24. "}
+          permitId={"p4"}
+          on:buyPermit={()=>{toast.error('ONLINE Registrations closed!')}}
+          />
+          <!-- on:buyPermit={handleBuyPermit} -->
       </div>
     </div>
-    <div class="btnContainer flex jcc">
-      <button type="button">Get Now</button>
+    <div class="wrapper">
+      <div class="imgContainer">
+        <img
+          src="../assets/img/permits/p1.png"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div class="permitContainer">
+        <BuyPermit
+          name={"Gen-AI Workshop Permit"}
+          validity={"June 12, 2024"}
+          price={"₹ 299"}
+          waveText={"You should get this permit to attend the Gen-AI Workshop. "}
+          permitId={"p1"}
+          on:buyPermit={()=>{toast.error('ONLINE Registrations closed!')}}
+          />
+          <!-- on:buyPermit={handleBuyPermit} -->
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="imgContainer">
+        <img
+          src="../assets/img/permits/p3.png"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div class="permitContainer">
+        <BuyPermit
+          name={"Events Permit"}
+          validity={"June 14 - 15 , 2024"}
+          waveText={"You should get this permit to attend any of the events. "}
+          price={"₹ 120"}
+          permitId={"p3"}
+          on:buyPermit={()=>{toast.error('ONLINE Registrations closed!')}}
+          />
+          <!-- on:buyPermit={handleBuyPermit} -->
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="imgContainer">
+        <img
+          src="../assets/img/permits/p2.png"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div class="permitContainer">
+        <BuyPermit
+          name={"Hack X Game Permit"}
+          validity={"June 13, 2024"}
+          price={"₹ 120"}
+          waveText={"You should get this permit to participate in Hack X Game. "}
+          permitId={"p2"}
+          on:buyPermit={()=>{toast.error('ONLINE Registrations closed!')}}
+          />
+          <!-- on:buyPermit={handleBuyPermit} -->
+      </div>
     </div>
   </div>
 </div>
 
+{#if showPopup}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <div
+    id="popupBackground"
+    class="popup-background"
+    on:click={handleOutsideClick}
+  >
+    {#if loginComp}
+      <div class="loginComp comp flex aic jcc">
+        <LoginForm {parentFunc} />
+      </div>
+    {:else if paymentComp && $isLoggedIn}
+      <div class="paymentComp comp flex aic jcc">
+        <Payment {permitID} {permitName} {permitPrice} {validity} />
+      </div>
+    {/if}
+  </div>
+{/if}
+
 <style>
-  button {
-    background-color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+  .popup-background {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
   }
-
-  button:hover {
-    background-color: #f2f2f2; /* Light gray */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
+  .bgAnim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    z-index: -10;
   }
-  .ticket {
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    min-width: 250px;
-    max-width: 300px;
-    color: black;
-    margin: 1rem;
+  .bgAnim img {
+    width: 100%;
+    height: 100vh;
   }
-
-  .ticket.expanded {
-    color: #fff;
-    background-color: #0f3cc9;
+  .bgBlur {
+    position: fixed;
+    overflow-x: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    z-index: -9;
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
   }
-
+  .pageRoot {
+    min-height: 100vh;
+    width: 100%;
+    padding: 7.5rem 0;
+  }
+  h3 {
+    margin-bottom: 2.5rem;
+    font-size: 1.5rem;
+    color: aliceblue;
+  }
   .container {
-    margin-top: 0.5rem;
-    display: none;
-    font-size: 0.95rem;
-  }
-  .details {
-    margin: 1rem 1rem;
-    font-size: 0.85rem;
+    flex-wrap: wrap;
   }
 
-  .ticket.expanded .container {
-    display: block;
+  .imgContainer {
+    max-width: 300px;
+    height: auto;
+  }
+  .wrapper {
+    border: 0.5px solid white;
+    margin: 0.5rem;
+    height: fit-content;
   }
 
-
-  h4 {
-    font-size: 1.2rem;
-    font-weight: 600;
+  img {
+    width: 100%;
+    height: auto;
   }
-
-
-  @keyframes colorWave {
-    0%,
-    100% {
-      color: #9eb5fa;
-    }
-    50% {
-      color: white;
-    }
-  }
-
-  .waveTextContainer {
-    margin: 0rem 0rem 1rem;
-  }
-
-  .wave-text {
-    display: inline;
-    font-size: 1.5em;
-    font-weight: bold;
-    line-height: 0;
-    color: #9eb5fa;
-    white-space: pre-wrap;
-  }
-
-  .wave-text span {
-    animation: colorWave 1.5s infinite;
-    animation-delay: calc(0.1s * var(--i));
-    font-size: 0.8rem;
-  }
-
-  @media (max-width: 400px) {
-    .ticket {
-      width: 95%;
-    }
+  @media (max-width: 1000px) {
+    /* .container{
+      flex-direction: column;
+    } */
   }
 </style>

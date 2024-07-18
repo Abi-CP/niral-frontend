@@ -2,7 +2,7 @@
   import { navigate } from "svelte-routing";
 
   navigate("/workshops/Gen-AI");
-  // console.log('ni');
+
 </script>
 
 <!-- <script>

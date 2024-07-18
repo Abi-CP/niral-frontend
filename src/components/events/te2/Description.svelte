@@ -1,16 +1,15 @@
 <div class="flex jcc fdc">
     <ul class="desc">
         <li>
-            <p>Join us for an exciting event focused on decrypting cryptographic enigmas through code-solving challenges.</p>
+            <p>Dive into an electrifying event where cryptographic puzzles and thrilling challenges await!</p>
         </li>
         <br>
         <li>
-            <p> Participants will embark on a journey to solve a program that reveals a crucial clue.</p>
+            <p> Participants will embark on an epic adventure, solving intricate puzzles that unveil crucial clues for their decryption quest.</p>
         </li>
         <br>
         <li>
-            <p> Using this clue, they will then decrypt a given encrypted text. A basic understanding of decryption algorithms is expected, ensuring a stimulating experience for all involved.
-            </p>
+            <p> Armed with these clues, they'll navigate a digital labyrinth to decrypt a hidden message, facing exciting  challenges and exhilarating ordeals along the way. This event promises non-stop excitement, fun puzzles, and a rewarding finish. Don’t miss your chance to be part of this unforgettable, super fun and adrenaline-pumping experience!</p>
         </li>
         
     </ul>

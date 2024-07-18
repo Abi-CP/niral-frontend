@@ -5,10 +5,9 @@
     import Description from "../../components/events/te3/Description.svelte";
     import Schedule   from "../../components/events/te3/Schedule.svelte";
     import Rules from '../../components/events/te3/Rules.svelte'
-    import Speaker from "../../components/events/te3/Speaker.svelte";
     import Contact from "../../components/events/te3/Contact.svelte";
     let title = "Software Presentation";
-    let bannerUrl = "../../assets/img/WS1.png"
+    let bannerUrl = "../../assets/img/events/SoftwarePresentation.jpeg"
     let nextRoute = "CodeBrawl";
     let prevRoute = "CipherCraft";
     let category = "tech";

@@ -432,8 +432,8 @@
     width: calc(100dvw - 4rem);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 35, 0.37);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px) saturate(120%);
-    -webkit-backdrop-filter: blur(10px) saturate(100%);
+    /* backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(100%); */
     border-radius: 1.5vh;
   }
 

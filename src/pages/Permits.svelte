@@ -128,9 +128,9 @@
           price={"₹ 299"}
           waveText={"You should get this permit to attend the Gen-AI Workshop. "}
           permitId={"p1"}
-          on:buyPermit={()=>{toast.error('ONLINE Registrations closed!')}}
+          on:buyPermit={handleBuyPermit}
           />
-          <!-- on:buyPermit={handleBuyPermit} -->
+          <!-- on:buyPermit={()=>{toast.error('ONLINE Registrations closed!')}} -->
       </div>
     </div>
     <div class="wrapper">

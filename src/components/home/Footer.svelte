@@ -18,8 +18,8 @@
         </Link>
     </li>
     <li class="clickable">
-        <Link to="/accomodation">
-      <h6>Accomodation</h6>
+        <Link to="/accommodation">
+      <h6>Accommodation</h6>
       </Link>
     </li>
     <li class="clickable">

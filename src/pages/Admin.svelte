@@ -5,7 +5,7 @@
   import ParticipantManagerForm from "../components/admin/ParticipantManagerItem.svelte";
   import PaymentManager from "../components/admin/PaymentManager.svelte";
   import SearchResult from "../components/admin/SearchResult.svelte";
-  import { serverUrl } from "../../public/env";
+  import { serverUrl } from "../../config";
   import { onMount } from "svelte";
   // import fetchPay
 

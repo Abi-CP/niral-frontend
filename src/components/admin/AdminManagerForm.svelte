@@ -1,6 +1,6 @@
 <script>
   import { showToast } from "../../lib/toast";
-  import { serverUrl } from "../../../public/env";
+  import { serverUrl } from "../../../config";
 
   export let adminFormType;
   export let currAdminData = {

@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { serverUrl } from "../../../public/env";
+  import { serverUrl } from "../../../config";
   import { fetchPayments, updateTransactions } from "../../lib/adminFunctions";
 
   let getType = "";

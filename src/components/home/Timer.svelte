@@ -6,7 +6,7 @@
   let minutes = "00";
   let seconds = "00";
 
-  const targetDate = new Date("2024-06-13T07:00:00");
+  const targetDate = new Date("2025-10-01T07:00:00");
 
   // Function to update the countdown
   function updateCountdown() {
@@ -31,19 +31,19 @@
   }
 
   // Update the countdown every second
-  // onMount(() => {
-  //   updateCountdown();
-  //   const timerInterval = setInterval(updateCountdown, 1000);
-  //   return () => clearInterval(timerInterval);
-  // });
+  onMount(() => {
+    updateCountdown();
+    const timerInterval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(timerInterval);
+  });
 </script>
 
-<!-- <p id="timer">
+<p id="timer">
   <span class="days">{days}</span>D <span class="hours">{hours}</span>H
   <span class="minutes">{minutes}</span>M
   <span class="seconds">{seconds}</span>S
-</p> -->
-<p class="msg" style="text-align: center;">Stay Tuned...</p>
+</p>
+<!-- <p class="msg" style="text-align: center;">Stay Tuned...</p> -->
 
 <style>
     * {

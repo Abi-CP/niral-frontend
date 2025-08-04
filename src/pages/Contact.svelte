@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { serverUrl } from "../../public/env";
+  import { serverUrl } from "../../config";
   import ContactCard from "../utils/ContactCard100.svelte";
   import { showToast } from "../lib/toast";
 

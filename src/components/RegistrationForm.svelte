@@ -3,7 +3,7 @@
   import { navigate } from "svelte-routing";
   import toast from "svelte-french-toast";
   import Login from "../pages/Login.svelte";
-  import { serverUrl } from "../../public/env";
+  import { serverUrl } from "../../config";
 
   export let regFields;
 

@@ -1,4 +1,4 @@
-import { serverUrl } from '../../public/env'
+import { serverUrl } from '../../config.js'
 import toast from 'svelte-french-toast'
 
 function showToast(type, message) {

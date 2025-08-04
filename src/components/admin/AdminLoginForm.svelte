@@ -2,7 +2,7 @@
   import { navigate } from "svelte-routing";
   import { toast } from "svelte-french-toast";
   import { isAdminLoggedIn } from "../../stores/adminLoginStatus";
-  import { serverUrl } from "../../../public/env";
+  import { serverUrl } from "../../../config";
 
   let rollNo = "";
   let password = "";

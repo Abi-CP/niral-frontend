@@ -8,7 +8,7 @@
   import toast, { Toaster } from "svelte-french-toast";
   import { isLoggedIn } from "./stores/loginStatus";
 
-  import { serverUrl } from "../public/env";
+  import { serverUrl } from "../config";
   import Particles from "./components/Particles.svelte";
   import StarTail from "./components/StarTail.svelte";
 
@@ -62,7 +62,7 @@
 
 <main>
   <!-- <Particles /> -->
-  <!-- <StarTail /> -->
+  <StarTail />
   <Router>
     <nav>
       <Nav {screenWidth} />

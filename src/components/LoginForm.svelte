@@ -4,7 +4,7 @@
   import { isLoggedIn, userDetailsStore } from "../stores/loginStatus";
   import { getContext } from "svelte";
   import { showToast } from "../lib/toast";
-  import { serverUrl } from "../../public/env";
+  import { serverUrl } from "../../config";
 
   const hideLoginComp = getContext("hideLoginComp");
 

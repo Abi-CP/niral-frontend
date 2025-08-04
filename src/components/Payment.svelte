@@ -1,6 +1,6 @@
 <script>
   import toast from "svelte-french-toast";
-  import { serverUrl } from "../../public/env";
+  import { serverUrl } from "../../config";
   import { navigate } from "svelte-routing";
   // console.log("payment");
   export let permitID;
